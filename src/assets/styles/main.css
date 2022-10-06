@@ -1,3 +1,17 @@
 body {
   font-family: "Poppins";
 }
+/* login page */
+.element {
+  background-image: url("/src/assets/images/login/Rectangle_3305.svg");
+}
+/* dashboard pade */
+/* view page */
+
+.top {
+  position: absolute;
+  left: 100px;
+  top: 100px;
+  border: 1px solid black;
+  z-index: 1;
+}

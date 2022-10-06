@@ -5,10 +5,10 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import View from "./pages/View";
 
-export default function App(params) {
+export default function App() {
   return (
     <React.Fragment>
-      <nav>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/login">Login</Link>
@@ -20,7 +20,7 @@ export default function App(params) {
             <Link to="/view">View</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
 
       <Routes>
         <Route path="/login" element={<Login />} />
