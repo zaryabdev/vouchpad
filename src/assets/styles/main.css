@@ -1,17 +1,24 @@
 body {
   font-family: "Poppins";
+  /* height: 100vh; */
+}
+
+.glass-background {
+  padding: 2rem 3rem;
+  background: rgb(65 65 65 / 26%);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+  -webkit-backdrop-filter: blur(11.9px);
+  backdrop-filter: blur(11.9px);
+}
+
+#login input {
+  color: #fff;
+}
+
+#login input:focus {
+  color: #fff;
 }
 /* login page */
-.element {
-  background-image: url("/src/assets/images/login/Rectangle_3305.svg");
-}
 /* dashboard pade */
 /* view page */
-
-.top {
-  position: absolute;
-  left: 100px;
-  top: 100px;
-  border: 1px solid black;
-  z-index: 1;
-}
