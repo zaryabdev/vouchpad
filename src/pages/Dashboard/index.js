@@ -78,6 +78,7 @@ export default function Dashboard(params) {
               className="row nav-bg"
               style={{
                 height: "100vh",
+                borderRadius: "0px 25px 25px 0px",
               }}
             >
               <div className="col-sm-12">
