@@ -13,8 +13,14 @@ const newPerson = () => {
   const statusChance = Math.random();
   return {
     id: uuidv4(),
-    caseId: Math.floor(Math.random() * 1000),
-    studentName: namor.generate({ words: 1, numbers: 0, subset: "manly" }),
+    caseId: Math.floor(Math.random() * 2100) + 2000,
+    studentName: namor.generate({
+      words: 2,
+      saltLength: 0,
+      numbers: 0,
+      subset: "manly",
+      separator: " ",
+    }),
     loan: Math.floor(Math.random() * 10000),
     creditScore: Math.floor(Math.random() * 1000) + 200,
     fairRating: Math.floor(Math.random() * 100) + 20,
