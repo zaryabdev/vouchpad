@@ -10,7 +10,7 @@ import orrange from "../../assets/images/dashboard/orrange.png";
 import parrot from "../../assets/images/dashboard/parrot.png";
 import yellow from "../../assets/images/dashboard/yellow.png";
 import red from "../../assets/images/dashboard/red.png";
-
+import logo from "../../assets/images/dashboard/logo.png";
 import getData from "../../utils/makeData";
 
 export default function Dashboard(params) {
@@ -28,6 +28,7 @@ export default function Dashboard(params) {
     return (
       <img
         src={color}
+        className="mx-2"
         style={{
           width: "20px",
           height: "20px",
@@ -49,6 +50,7 @@ export default function Dashboard(params) {
     return (
       <img
         src={color}
+        className="mx-2"
         style={{
           width: "20px",
           height: "20px",
@@ -84,8 +86,7 @@ export default function Dashboard(params) {
                     width: "110px",
                     height: "110px",
                   }}
-                  src=""
-                  className="border rounded my-3"
+                  src={logo}
                   alt=""
                 />
                 <ul className="ps-5 navbar-nav">
@@ -150,7 +151,7 @@ export default function Dashboard(params) {
                 </div>
               </div>
             </div>
-            <div className="row ps-4">
+            <div className="row ps-4 ">
               <div className="p-4 d-flex justify-content-between">
                 <div className="">
                   <h3 className="fw-bold"> All Cases</h3>
@@ -163,68 +164,78 @@ export default function Dashboard(params) {
                 Here are your stats for December 22, 2022
               </p>
             </div>
-            <div className="row ps-4">
-              <table className="table table-shadow">
-                <thead className="table-header">
-                  <tr>
-                    <th scope="col-sm-1">
-                      <p className="fw-light text-light">Case ID</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Student Name</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Date</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">
-                        Loan Request (USD $)
-                      </p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Credit Score &#169;</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Fair Rating &#169;</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Status</p>
-                    </th>
-                    <th scope="col">
-                      <p className="fw-light text-light">Action</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item) => {
-                    return (
-                      <tr>
-                        <th scope="row">{item.caseId}</th>
-                        <td>{item.studentName}</td>
-                        <td>August {item.day}, 2022</td>
-                        <td>$ {item.loan}</td>
-                        <td>
-                          {getColorByCreditScore(item.creditScore)}
-                          {item.creditScore}
-                        </td>
-                        <td>
-                          {getColorByRatings(item.fairRating)}
-                          {item.fairRating}
-                        </td>
-                        <td>
-                          <p className={`${getColorByStatus(item.status)}`}>
-                            {" "}
-                            {item.status}{" "}
-                          </p>
-                        </td>
-                        <td>View</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            <div className="row ps-4 me-2">
+              <div id="main-app" className="scroll-me px-0 table-shadow">
+                <table className="table ">
+                  <thead className="table-header sticky-top">
+                    <tr>
+                      <th scope="col-sm-1">
+                        <p className="fw-light text-light">Case ID</p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">Student Name</p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">Date</p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">
+                          Loan Request (USD $)
+                        </p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">
+                          Credit Score &#169;
+                        </p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">
+                          Fair Rating &#169;
+                        </p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">Status</p>
+                      </th>
+                      <th scope="col">
+                        <p className="fw-light text-light">Action</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.map((item) => {
+                      return (
+                        <tr>
+                          <th scope="row">{item.caseId}</th>
+                          <td>{item.studentName}</td>
+                          <td>August {item.day}, 2022</td>
+                          <td>$ {item.loan}</td>
+                          <td>
+                            {getColorByCreditScore(item.creditScore)}
+                            {item.creditScore}
+                          </td>
+                          <td>
+                            {getColorByRatings(item.fairRating)}
+                            {item.fairRating}
+                          </td>
+                          <td>
+                            <p className={`${getColorByStatus(item.status)}`}>
+                              {" "}
+                              {item.status}{" "}
+                            </p>
+                          </td>
+                          <td>
+                            <button className="btn btn-sm btn-primary rounded-5 px-3 table-shadow">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div className="row">
+            <div className="row mt-4">
               <div className="d-flex justify-content-end align-items-center">
                 <nav aria-label="Page navigation example">
                   <ul className="pagination justify-content-center">

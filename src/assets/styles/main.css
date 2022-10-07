@@ -1,7 +1,22 @@
 body {
   font-family: "Poppins";
   font-size: 15px;
+  overflow-x: hidden;
   /* height: 100vh; */
+}
+
+#main-app::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+}
+
+#main-app::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#main-app::-webkit-scrollbar-thumb {
+  background-color: #a1a1a1;
 }
 
 .glass-background {
@@ -19,6 +34,17 @@ body {
 
 #login input:focus {
   color: #fff;
+}
+
+tbody > tr > td {
+  color: #09285a;
+}
+
+.scroll-me {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 350px;
+  width: 100%;
 }
 
 .table-header {
