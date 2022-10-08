@@ -85,3 +85,18 @@ tbody > tr > td {
 /* login page */
 /* dashboard pade */
 /* view page */
+
+.sidebar-item-bg {
+  border-radius: 10px 0px 0px 10px;
+  background-color: #037ae0;
+}
+
+.sidebar-item-bg-2 {
+  border-radius: 10px 0px 0px 10px;
+  background-color: #037a66;
+}
+
+.icon-bg {
+  padding: 6px;
+  border-radius: 8px 8px 0px 8px;
+}

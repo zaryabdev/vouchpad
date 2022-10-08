@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 
 import groupIcon from "../../assets/images/dashboard/Group_5366@2x.png";
@@ -10,11 +10,37 @@ import orrange from "../../assets/images/dashboard/orrange.png";
 import parrot from "../../assets/images/dashboard/parrot.png";
 import yellow from "../../assets/images/dashboard/yellow.png";
 import red from "../../assets/images/dashboard/red.png";
-import logo from "../../assets/images/dashboard/logo.png";
+import logo from "../../assets/images/dashboard/brand-logo.png";
+import arrowDown from "../../assets/images/dashboard/arrow-down.png";
+
 import getData from "../../utils/makeData";
 
 export default function Dashboard(params) {
   const data = React.useMemo(() => getData(10), []);
+
+  const [width, setWidth] = useState("desktop");
+  useEffect(() => {
+    getCurrentWidthAndHeight();
+  }, []);
+
+  function getCurrentWidthAndHeight() {
+    function checkWidth() {
+      if (window.innerWidth > 576) {
+        setWidth("desktop");
+      } else if (window.innerWidth < 576) {
+        setWidth("mobile");
+      }
+    }
+
+    checkWidth();
+
+    window.addEventListener("resize", checkWidth);
+
+    return () => {
+      window.removeEventListener("resize", checkWidth);
+    };
+  }
+
   function getColorByCreditScore(score) {
     let color = darkRed;
 
@@ -69,28 +95,160 @@ export default function Dashboard(params) {
 
     return color;
   }
+
+  function openNav() {
+    document.getElementById("side-navbar").style.width = "250px";
+    // document.getElementById("main").style.marginLeft = "250px";
+  }
+  function closeNav() {
+    document.getElementById("side-navbar").style.width = "0";
+    // document.getElementById("main").style.marginLeft = "0";
+  }
   return (
     <React.Fragment>
       <div id="dashboard" className="container-fluid px-0">
         <div className="row">
-          <div className="col-sm-3">
-            <div
-              className="row nav-bg"
-              style={{
-                height: "100vh",
-                borderRadius: "0px 25px 25px 0px",
-              }}
-            >
+          <div className="col-sm-2">
+            <div className="row bg-dark">
               <div className="col-sm-12">
-                <img
-                  style={{
-                    width: "110px",
-                    height: "110px",
-                  }}
-                  src={logo}
-                  alt=""
-                />
-                <ul className="ps-5 navbar-nav">
+                <div className="row">
+                  <img
+                    className="mt-4 mb-3"
+                    style={{
+                      width: "130px",
+                      height: "110px",
+                    }}
+                    src={logo}
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div className="col-sm-12">
+                <div className="row ms-4 my-2">
+                  <div class="position-relative ps-4 py-3 color-white">
+                    Dashboard
+                    <span class="position-absolute top-50 start-0 translate-middle">
+                      <div className="icon-bg">
+                        <img
+                          src={groupIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt=""
+                        />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div className="row ms-4 my-2">
+                  <div class="position-relative ps-4 py-3 color-white">
+                    Support Messages
+                    <span class="position-absolute top-50 start-0 translate-middle">
+                      <div className="icon-bg ">
+                        <img
+                          src={groupIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt=""
+                        />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div className="row ms-4 my-2">
+                  <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
+                    <div class="d-flex align-items-center">
+                      <div class="">Survey</div>
+                      <div class="ms-auto">
+                        <img
+                          className=""
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                          }}
+                          src={arrowDown}
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <span class="position-absolute top-50 start-0 translate-middle">
+                      <div className="icon-bg bg-light">
+                        <img
+                          src={groupIcon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt=""
+                        />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                {/* <div className="row">
+                  <div
+                    class="d-flex align-items-start flex-column"
+                    style={{ height: "80vh" }}
+                  >
+                    <div class="row bg-primary">
+                      <div class="col-sm-12   sidebar-item-bg position-relative">
+                        Dashboard
+                        <span class="position-absolute top-50 start-0 translate-middle">
+                          <div className="icon-bg bg-light">
+                            <img
+                              src={groupIcon}
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                              }}
+                              alt=""
+                            />
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="">
+                      <div
+                        type="button"
+                        class="btn btn-primary position-relative"
+                      >
+                        Support Messages{" "}
+                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
+                          <span class="visually-hidden"></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="mb-auto">
+                      <div
+                        type="button"
+                        class="btn btn-primary position-relative"
+                      >
+                        <div class="d-flex align-items-center">
+                          <div class="p-2">Flex item 1</div>
+                          <div class="p-2">Flex item 2</div>
+                        </div>
+                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
+                          <span class="visually-hidden"></span>
+                        </span>
+                      </div>
+                      <div
+                        type="button"
+                        class="btn btn-primary position-relative"
+                      >
+                        Logout
+                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
+                          <span class="visually-hidden"></span>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="">Log out</div>
+                  </div>
+                </div> */}
+
+                {/* <ul className="ps-5 navbar-nav">
                   <li className="nav-item">
                     <div className="d-flex flex-row align-items-end mb-3">
                       <img
@@ -121,14 +279,14 @@ export default function Dashboard(params) {
                       </Link>
                     </div>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>
-          <div className="col-sm-9">
+          <div className="col-sm-10">
             <div className="row border-bottom">
               <div className="d-flex justify-content-end align-items-center">
-                <div className="p-2">
+                <div onClick={() => openNav()} className="p-2">
                   <img
                     src={gearIcon}
                     style={{

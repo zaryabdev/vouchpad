@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie";
+import { useNavigate } from "react-router-dom";
 
 import mainBackgourndSvg from "../../assets/images/login/Rectangle_3305.svg";
 import formBackgroundSvg from "../../assets/images/login/Rectangle_3303.svg";
@@ -7,7 +8,7 @@ import rechaptcha from "../../assets/images/login/g847.svg";
 import animationData from "../../assets/animation/login/108277.json";
 
 export default function Login() {
-  const [width, setWidth] = useState("desktop");
+  const navigate = useNavigate();
 
   const defaultOptions = {
     loop: true,
@@ -16,6 +17,7 @@ export default function Login() {
     renderer: "svg",
   };
 
+  const [width, setWidth] = useState("desktop");
   useEffect(() => {
     getCurrentWidthAndHeight();
   }, []);
@@ -151,6 +153,9 @@ export default function Login() {
                         <button
                           type="button"
                           className="btn btn-primary rounded-4 mt-3"
+                          onClick={() => {
+                            setTimeout(() => navigate("/dashboard"), 200);
+                          }}
                         >
                           Sign in
                         </button>
