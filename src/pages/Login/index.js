@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Lottie from "react-lottie";
 
 import mainBackgourndSvg from "../../assets/images/login/Rectangle_3305.svg";
@@ -7,12 +7,37 @@ import rechaptcha from "../../assets/images/login/g847.svg";
 import animationData from "../../assets/animation/login/108277.json";
 
 export default function Login() {
+  const [width, setWidth] = useState("desktop");
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: animationData,
     renderer: "svg",
   };
+
+  useEffect(() => {
+    getCurrentWidthAndHeight();
+  }, []);
+
+  function getCurrentWidthAndHeight() {
+    function checkWidth() {
+      if (window.innerWidth > 576) {
+        setWidth("desktop");
+      } else if (window.innerWidth < 576) {
+        setWidth("mobile");
+      }
+    }
+
+    checkWidth();
+
+    window.addEventListener("resize", checkWidth);
+
+    return () => {
+      window.removeEventListener("resize", checkWidth);
+    };
+  }
+
   return (
     <React.Fragment>
       <div id="login" className="container-fluid">
@@ -24,30 +49,37 @@ export default function Login() {
             height: "100vh",
           }}
         >
-          <div className="col-sm-6">
-            <div
-              className="d-flex align-items-center justify-content-center"
-              style={{
-                height: "100vh",
-              }}
-            >
-              <Lottie
-                isClickToPauseDisabled
-                options={defaultOptions}
-                height={350}
-                width={350}
-              />
+          {width === "desktop" && (
+            <div className="col-sm-6 px-0">
+              <div
+                className="d-flex align-items-center justify-content-center"
+                style={{
+                  height: "100vh",
+                }}
+              >
+                <Lottie
+                  isClickToPauseDisabled
+                  options={defaultOptions}
+                  height={350}
+                  width={350}
+                />
+              </div>
             </div>
-          </div>
-          <div className="col-sm-6">
+          )}
+
+          <div
+            className={`${
+              width === "desktop" ? "col-sm-6 " : "col-sm-12 "
+            } px-0`}
+          >
             <div
-              className="d-flex align-items-center justify-content-center"
+              className="d-flex align-items-center justify-content-center login-bg-gradient login-bg-radius"
               style={{
-                backgroundImage: `url(${formBackgroundSvg})`,
+                // backgroundImage: `url(${formBackgroundSvg})`,
                 height: "100vh",
               }}
             >
-              <div className="glass-background">
+              <div className="login-form-bg-gradient">
                 <div>
                   <center>
                     <p className="h5 text-light mb-3">

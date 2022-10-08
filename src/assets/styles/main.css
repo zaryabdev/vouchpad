@@ -19,7 +19,7 @@ body {
   background-color: #a1a1a1;
 }
 
-.glass-background {
+.login-form-bg-gradient {
   padding: 2rem 3rem;
   background: rgb(65 65 65 / 26%);
   border-radius: 8px;
@@ -28,12 +28,30 @@ body {
   backdrop-filter: blur(11.9px);
 }
 
+#login {
+  min-height: 80vh;
+}
+
 #login input {
   color: #fff;
 }
 
 #login input:focus {
   color: #fff;
+}
+
+#login .login-bg-gradient {
+  background: rgb(240, 206, 179);
+  background: linear-gradient(
+    318deg,
+    rgba(240, 206, 179, 1) 0%,
+    rgba(143, 172, 219, 1) 35%,
+    rgba(78, 124, 180, 1) 100%
+  );
+}
+
+#login .login-bg-radius {
+  border-radius: 50px 0px 0px 50px;
 }
 
 tbody > tr > td {
