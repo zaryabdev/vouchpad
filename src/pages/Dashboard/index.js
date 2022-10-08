@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Route, Routes, Link } from "react-router-dom";
 
 import icon from "../../assets/images/dashboard/icon-one.svg";
@@ -16,10 +17,16 @@ import arrowDown from "../../assets/images/dashboard/arrow-down.png";
 
 import getData from "../../utils/makeData";
 
-export default function Dashboard(params) {
-  const data = React.useMemo(() => getData(10), []);
+import View from "../View";
 
+function Dashboard(params) {
+  const data = React.useMemo(() => getData(10), []);
+  const navigate = useNavigate();
+
+  const [showNavLinkItems, setShowNavItems] = useState(false);
+  const [toggleView, setToggleView] = useState(false);
   const [width, setWidth] = useState("desktop");
+
   useEffect(() => {
     getCurrentWidthAndHeight();
   }, []);
@@ -105,6 +112,19 @@ export default function Dashboard(params) {
     document.getElementById("side-navbar").style.width = "0";
     // document.getElementById("main").style.marginLeft = "0";
   }
+
+  // function toggleSurveyItems() {
+  //   debugger;
+  //   let value = mySurvey.current.style.display;
+  //   if (value === "none" || value === "") {
+  //     mySurvey.current.style.display = "display";
+  //     newSurvey.current.style.display = "display";
+  //   } else if (value === "display") {
+  //     mySurvey.current.style.display = "hidden";
+  //     newSurvey.current.style.display = "hidden";
+  //   }
+  // }
+
   return (
     <React.Fragment>
       <div id="dashboard" className="container-fluid px-0">
@@ -126,10 +146,10 @@ export default function Dashboard(params) {
               </div>
               <div className="col-sm-12">
                 <div className="row ms-4 my-2">
-                  <div class="position-relative ps-4 py-3 color-white">
+                  <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
                     Dashboard
                     <span class="position-absolute top-50 start-0 translate-middle">
-                      <div className="icon-bg">
+                      <div className="icon-bg bg-light">
                         <img
                           src={icon}
                           style={{
@@ -160,23 +180,33 @@ export default function Dashboard(params) {
                   </div>
                 </div>
                 <div className="row ms-4 mt-2">
-                  <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
+                  <div
+                    class={`position-relative ps-4 py-3 color-white ${
+                      showNavLinkItems === true ? "sidebar-item-bg" : ""
+                    }`}
+                  >
                     <div class="d-flex align-items-center">
                       <div class="">Survey</div>
                       <div class="ms-auto">
                         <img
-                          className=""
+                          onClick={() => setShowNavItems(!showNavLinkItems)}
+                          src={arrowDown}
+                          className="flip-img"
                           style={{
                             width: "10px",
                             height: "10px",
+                            cursor: "pointer",
                           }}
-                          src={arrowDown}
                           alt=""
                         />
                       </div>
                     </div>
                     <span class="position-absolute top-50 start-0 translate-middle">
-                      <div className="icon-bg bg-light">
+                      <div
+                        className={`icon-bg ${
+                          showNavLinkItems === true ? "bg-light" : ""
+                        }`}
+                      >
                         <img
                           src={icon}
                           style={{
@@ -189,39 +219,54 @@ export default function Dashboard(params) {
                     </span>
                   </div>
                 </div>
-                <div className="row ms-5 my-0">
-                  <div class="d-flex align-items-center sidebar-item-bg-2a">
-                    <div class="p-2 color-white">
-                      <img
-                        src={iconWhite}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                        }}
-                        alt=""
-                      />
+                {showNavLinkItems === true && (
+                  <>
+                    <div className="row ms-5 my-0">
+                      <div class="d-flex align-items-center sidebar-item-bg-2a">
+                        <div class="p-2 pe-0 color-white">
+                          <img
+                            src={iconWhite}
+                            style={{
+                              width: "15px",
+                              height: "15px",
+                            }}
+                            alt=""
+                          />
+                        </div>
+                        <div class="p-2 color-white">My surveys</div>
+                      </div>
                     </div>
-                    <div class="p-2 color-white">My surveys</div>
-                  </div>
-                </div>
-                <div className="row ms-5 my-0">
-                  <div class="d-flex align-items-center sidebar-item-bg-2b">
-                    <div class="p-2 color-white">
-                      <img
-                        src={iconWhite}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                        }}
-                        alt=""
-                      />
+                    <div className="row ms-5 my-0">
+                      <div class="d-flex align-items-center sidebar-item-bg-2b">
+                        <div class="p-2 pe-0 color-white">
+                          <img
+                            src={iconWhite}
+                            style={{
+                              width: "15px",
+                              height: "15px",
+                            }}
+                            alt=""
+                          />
+                        </div>
+                        <div class="p-2 pe-0 color-white">
+                          Create new survey
+                        </div>
+                      </div>
                     </div>
-                    <div class="p-2 color-white">My surveys</div>
-                  </div>
-                </div>
+                  </>
+                )}
+
                 <div className="row ms-4 mb-auto">
-                  <div class="position-relative ps-4 py-3 color-white">
-                    Login
+                  <div
+                    onClick={() => {
+                      setTimeout(() => navigate("/login"), 200);
+                    }}
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    class="position-relative ps-4 py-3 color-white"
+                  >
+                    Log out
                     <span class="position-absolute top-50 start-0 translate-middle">
                       <div className="icon-bg">
                         <img
@@ -295,7 +340,6 @@ export default function Dashboard(params) {
                     <div class="">Log out</div>
                   </div>
                 </div> */}
-
                 {/* <ul className="ps-5 navbar-nav">
                   <li className="nav-item">
                     <div className="d-flex flex-row align-items-end mb-3">
@@ -332,150 +376,172 @@ export default function Dashboard(params) {
             </div>
           </div>
           <div className="col-sm-10 bg-light">
-            <div className="row border-bottom">
-              <div className="d-flex justify-content-end align-items-center">
-                <div onClick={() => openNav()} className="p-2">
-                  <img
-                    src={gearIcon}
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                    }}
-                    alt=""
-                  />
+            <Header />
+            {toggleView === false && (
+              <React.Fragment>
+                <div className="row ps-4 ">
+                  <div className="p-4 d-flex justify-content-between">
+                    <div className="">
+                      <h3 className="fw-bold"> All Cases</h3>
+                    </div>
+                    <div className="p-2">Search Bar</div>
+                  </div>
                 </div>
-                <div className="p-2">Welcome back,</div>
-                <div className="p-2 fw-semibold"> John</div>
-                <div className="p-2">
-                  <img
-                    src={profilePic}
-                    style={{
-                      width: "60px",
-                      height: "60px",
-                    }}
-                    alt=""
-                  />
+                <div className="row ps-4">
+                  <p className="text-muted ms-1">
+                    Here are your stats for December 22, 2022
+                  </p>
                 </div>
-              </div>
-            </div>
-            <div className="row ps-4 ">
-              <div className="p-4 d-flex justify-content-between">
-                <div className="">
-                  <h3 className="fw-bold"> All Cases</h3>
-                </div>
-                <div className="p-2">Search Bar</div>
-              </div>
-            </div>
-            <div className="row ps-4">
-              <p className="text-muted ms-1">
-                Here are your stats for December 22, 2022
-              </p>
-            </div>
-            <div className="row ps-4 me-2">
-              <div id="main-app" className="scroll-me px-0 table-shadow">
-                <table className="table ">
-                  <thead className="table-header sticky-top">
-                    <tr>
-                      <th scope="col-sm-1">
-                        <p className="fw-light text-light">Case ID</p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">Student Name</p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">Date</p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">
-                          Loan Request (USD $)
-                        </p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">
-                          Credit Score &#169;
-                        </p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">
-                          Fair Rating &#169;
-                        </p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">Status</p>
-                      </th>
-                      <th scope="col">
-                        <p className="fw-light text-light">Action</p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((item) => {
-                      return (
+                <div className="row ps-4 me-2">
+                  <div id="main-app" className="scroll-me px-0 table-shadow">
+                    <table className="table ">
+                      <thead className="table-header sticky-top">
                         <tr>
-                          <th scope="row">{item.caseId}</th>
-                          <td>{item.studentName}</td>
-                          <td>August {item.day}, 2022</td>
-                          <td>$ {item.loan}</td>
-                          <td>
-                            {getColorByCreditScore(item.creditScore)}
-                            {item.creditScore}
-                          </td>
-                          <td>
-                            {getColorByRatings(item.fairRating)}
-                            {item.fairRating}
-                          </td>
-                          <td>
-                            <p className={`${getColorByStatus(item.status)}`}>
-                              {" "}
-                              {item.status}{" "}
+                          <th scope="col-sm-1">
+                            <p className="fw-light text-light">Case ID</p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">Student Name</p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">Date</p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">
+                              Loan Request (USD $)
                             </p>
-                          </td>
-                          <td>
-                            <button className="btn btn-sm btn-primary rounded-5 px-3 table-shadow">
-                              View
-                            </button>
-                          </td>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">
+                              Credit Score &#169;
+                            </p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">
+                              Fair Rating &#169;
+                            </p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">Status</p>
+                          </th>
+                          <th scope="col">
+                            <p className="fw-light text-light">Action</p>
+                          </th>
                         </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className="row mt-4">
-              <div className="d-flex justify-content-end align-items-center">
-                <nav aria-label="Page navigation example">
-                  <ul className="pagination justify-content-center">
-                    <li className="page-item disabled">
-                      <a className="page-link">Previous</a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-                    <li className="page-item">
-                      <a className="page-link" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div>
+                      </thead>
+                      <tbody>
+                        {data.map((item) => {
+                          return (
+                            <tr>
+                              <th scope="row">{item.caseId}</th>
+                              <td>{item.studentName}</td>
+                              <td>August {item.day}, 2022</td>
+                              <td>$ {item.loan}</td>
+                              <td>
+                                {getColorByCreditScore(item.creditScore)}
+                                {item.creditScore}
+                              </td>
+                              <td>
+                                {getColorByRatings(item.fairRating)}
+                                {item.fairRating}
+                              </td>
+                              <td>
+                                <p
+                                  className={`${getColorByStatus(item.status)}`}
+                                >
+                                  {" "}
+                                  {item.status}{" "}
+                                </p>
+                              </td>
+                              <td>
+                                <button
+                                  onClick={() => {
+                                    setTimeout(() => {
+                                      setToggleView(true);
+                                    }, 200);
+                                  }}
+                                  className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
+                                >
+                                  View
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="d-flex justify-content-end align-items-center">
+                    <nav aria-label="Page navigation example">
+                      <ul className="pagination justify-content-center">
+                        <li className="page-item disabled">
+                          <a className="page-link">Previous</a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            1
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            2
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            3
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            Next
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </React.Fragment>
+            )}
+            {toggleView === true && <View />}
           </div>
         </div>
       </div>
     </React.Fragment>
   );
 }
+
+function Header() {
+  return (
+    <div className="row border-bottom">
+      <div className="d-flex justify-content-end align-items-center">
+        <div className="p-2">
+          <img
+            src={gearIcon}
+            style={{
+              width: "25px",
+              height: "25px",
+            }}
+            alt=""
+          />
+        </div>
+        <div className="p-2">Welcome back,</div>
+        <div className="p-2 fw-semibold"> John</div>
+        <div className="p-2">
+          <img
+            src={profilePic}
+            style={{
+              width: "60px",
+              height: "60px",
+            }}
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export { Header, Dashboard };

@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes, Link } from "react-router-dom";
 
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import { Dashboard } from "./pages/Dashboard";
 import View from "./pages/View";
 
 export default function App() {
