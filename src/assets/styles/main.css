@@ -91,9 +91,14 @@ tbody > tr > td {
   background-color: #037ae0;
 }
 
-.sidebar-item-bg-2 {
-  border-radius: 10px 0px 0px 10px;
-  background-color: #037a66;
+.sidebar-item-bg-2a {
+  border-radius: 0px 0px 0px 0px;
+  background-color: #0562b1;
+}
+
+.sidebar-item-bg-2b {
+  border-radius: 0px 0px 0px 10px;
+  background-color: #0562b1;
 }
 
 .icon-bg {

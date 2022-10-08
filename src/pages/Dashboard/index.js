@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 
-import groupIcon from "../../assets/images/dashboard/Group_5366@2x.png";
+import icon from "../../assets/images/dashboard/icon-one.svg";
+import iconWhite from "../../assets/images/dashboard/icon-one-white.svg";
 import profilePic from "../../assets/images/dashboard/profile-pic.png";
 import gearIcon from "../../assets/images/dashboard/#000000fe.png";
 import darkRed from "../../assets/images/dashboard/dark-red.png";
@@ -107,9 +108,9 @@ export default function Dashboard(params) {
   return (
     <React.Fragment>
       <div id="dashboard" className="container-fluid px-0">
-        <div className="row">
+        <div className="row bg-dark">
           <div className="col-sm-2">
-            <div className="row bg-dark">
+            <div className="row ">
               <div className="col-sm-12">
                 <div className="row">
                   <img
@@ -130,7 +131,7 @@ export default function Dashboard(params) {
                     <span class="position-absolute top-50 start-0 translate-middle">
                       <div className="icon-bg">
                         <img
-                          src={groupIcon}
+                          src={icon}
                           style={{
                             width: "20px",
                             height: "20px",
@@ -147,7 +148,7 @@ export default function Dashboard(params) {
                     <span class="position-absolute top-50 start-0 translate-middle">
                       <div className="icon-bg ">
                         <img
-                          src={groupIcon}
+                          src={icon}
                           style={{
                             width: "20px",
                             height: "20px",
@@ -158,7 +159,7 @@ export default function Dashboard(params) {
                     </span>
                   </div>
                 </div>
-                <div className="row ms-4 my-2">
+                <div className="row ms-4 mt-2">
                   <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
                     <div class="d-flex align-items-center">
                       <div class="">Survey</div>
@@ -177,7 +178,54 @@ export default function Dashboard(params) {
                     <span class="position-absolute top-50 start-0 translate-middle">
                       <div className="icon-bg bg-light">
                         <img
-                          src={groupIcon}
+                          src={icon}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                          }}
+                          alt=""
+                        />
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <div className="row ms-5 my-0">
+                  <div class="d-flex align-items-center sidebar-item-bg-2a">
+                    <div class="p-2 color-white">
+                      <img
+                        src={iconWhite}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                        }}
+                        alt=""
+                      />
+                    </div>
+                    <div class="p-2 color-white">My surveys</div>
+                  </div>
+                </div>
+                <div className="row ms-5 my-0">
+                  <div class="d-flex align-items-center sidebar-item-bg-2b">
+                    <div class="p-2 color-white">
+                      <img
+                        src={iconWhite}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                        }}
+                        alt=""
+                      />
+                    </div>
+                    <div class="p-2 color-white">My surveys</div>
+                  </div>
+                </div>
+                <div className="row ms-4 mb-auto">
+                  <div class="position-relative ps-4 py-3 color-white">
+                    Login
+                    <span class="position-absolute top-50 start-0 translate-middle">
+                      <div className="icon-bg">
+                        <img
+                          src={icon}
                           style={{
                             width: "20px",
                             height: "20px",
@@ -283,7 +331,7 @@ export default function Dashboard(params) {
               </div>
             </div>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-10 bg-light">
             <div className="row border-bottom">
               <div className="d-flex justify-content-end align-items-center">
                 <div onClick={() => openNav()} className="p-2">
