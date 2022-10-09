@@ -31,6 +31,10 @@ function Dashboard(params) {
     getCurrentWidthAndHeight();
   }, []);
 
+  function handleToggleView(value) {
+    setToggleView(value);
+  }
+
   function getCurrentWidthAndHeight() {
     function checkWidth() {
       if (window.innerWidth > 576) {
@@ -47,61 +51,6 @@ function Dashboard(params) {
     return () => {
       window.removeEventListener("resize", checkWidth);
     };
-  }
-
-  function getColorByCreditScore(score) {
-    let color = darkRed;
-
-    if (score > 800) color = green;
-    else if (score > 700) color = orrange;
-    else if (score > 600) color = orrange;
-    else if (score > 500) color = parrot;
-    else if (score > 400) color = red;
-    else if (score <= 400) color = darkRed;
-
-    return (
-      <img
-        src={color}
-        className="mx-2"
-        style={{
-          width: "20px",
-          height: "20px",
-        }}
-        alt=""
-      />
-    );
-  }
-  function getColorByRatings(rating) {
-    let color = darkRed;
-
-    if (rating > 80) color = green;
-    else if (rating > 70) color = orrange;
-    else if (rating > 60) color = orrange;
-    else if (rating > 50) color = parrot;
-    else if (rating > 40) color = red;
-    else if (rating <= 40) color = darkRed;
-
-    return (
-      <img
-        src={color}
-        className="mx-2"
-        style={{
-          width: "20px",
-          height: "20px",
-        }}
-        alt=""
-      />
-    );
-  }
-
-  function getColorByStatus(status) {
-    let color = "";
-
-    if (status == "Loan Approved") color = "text-success";
-    else if (status == "Under Review") color = "text-warning";
-    else if (status == "Rejected") color = "text-danger";
-
-    return color;
   }
 
   function openNav() {
@@ -392,86 +341,8 @@ function Dashboard(params) {
                     Here are your stats for December 22, 2022
                   </p>
                 </div>
-                <div className="row ps-4 me-2">
-                  <div id="main-app" className="scroll-me px-0 table-shadow">
-                    <table className="table ">
-                      <thead className="table-header sticky-top">
-                        <tr>
-                          <th scope="col-sm-1">
-                            <p className="fw-light text-light">Case ID</p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">Student Name</p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">Date</p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">
-                              Loan Request (USD $)
-                            </p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">
-                              Credit Score &#169;
-                            </p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">
-                              Fair Rating &#169;
-                            </p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">Status</p>
-                          </th>
-                          <th scope="col">
-                            <p className="fw-light text-light">Action</p>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.map((item) => {
-                          return (
-                            <tr>
-                              <th scope="row">{item.caseId}</th>
-                              <td>{item.studentName}</td>
-                              <td>August {item.day}, 2022</td>
-                              <td>$ {item.loan}</td>
-                              <td>
-                                {getColorByCreditScore(item.creditScore)}
-                                {item.creditScore}
-                              </td>
-                              <td>
-                                {getColorByRatings(item.fairRating)}
-                                {item.fairRating}
-                              </td>
-                              <td>
-                                <p
-                                  className={`${getColorByStatus(item.status)}`}
-                                >
-                                  {" "}
-                                  {item.status}{" "}
-                                </p>
-                              </td>
-                              <td>
-                                <button
-                                  onClick={() => {
-                                    setTimeout(() => {
-                                      setToggleView(true);
-                                    }, 200);
-                                  }}
-                                  className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
-                                >
-                                  View
-                                </button>
-                              </td>
-                            </tr>
-                          );
-                        })}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
+                {/* <TableOne data={data} handleToggleView={handleToggleView} /> */}
+
                 <div className="row mt-4">
                   <div className="d-flex justify-content-end align-items-center">
                     <nav aria-label="Page navigation example">
@@ -510,6 +381,137 @@ function Dashboard(params) {
         </div>
       </div>
     </React.Fragment>
+  );
+}
+
+function TableOne({ data, handleToggleView }) {
+  function getColorByCreditScore(score) {
+    let color = darkRed;
+
+    if (score > 800) color = green;
+    else if (score > 700) color = orrange;
+    else if (score > 600) color = orrange;
+    else if (score > 500) color = parrot;
+    else if (score > 400) color = red;
+    else if (score <= 400) color = darkRed;
+
+    return (
+      <img
+        src={color}
+        className="mx-2"
+        style={{
+          width: "20px",
+          height: "20px",
+        }}
+        alt=""
+      />
+    );
+  }
+  function getColorByRatings(rating) {
+    let color = darkRed;
+
+    if (rating > 80) color = green;
+    else if (rating > 70) color = orrange;
+    else if (rating > 60) color = orrange;
+    else if (rating > 50) color = parrot;
+    else if (rating > 40) color = red;
+    else if (rating <= 40) color = darkRed;
+
+    return (
+      <img
+        src={color}
+        className="mx-2"
+        style={{
+          width: "20px",
+          height: "20px",
+        }}
+        alt=""
+      />
+    );
+  }
+
+  function getColorByStatus(status) {
+    let color = "";
+
+    if (status == "Loan Approved") color = "text-success";
+    else if (status == "Under Review") color = "text-warning";
+    else if (status == "Rejected") color = "text-danger";
+
+    return color;
+  }
+  return (
+    <div className="row ps-4 me-2">
+      <div id="main-app" className="scroll-me px-0 table-shadow">
+        <table className="table ">
+          <thead className="table-header sticky-top">
+            <tr>
+              <th scope="col-sm-1">
+                <p className="fw-light text-light">Case ID</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Student Name</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Date</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Loan Request (USD $)</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Credit Score &#169;</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Fair Rating &#169;</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Status</p>
+              </th>
+              <th scope="col">
+                <p className="fw-light text-light">Action</p>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => {
+              return (
+                <tr>
+                  <th scope="row">{item.caseId}</th>
+                  <td>{item.studentName}</td>
+                  <td>August {item.day}, 2022</td>
+                  <td>$ {item.loan}</td>
+                  <td>
+                    {getColorByCreditScore(item.creditScore)}
+                    {item.creditScore}
+                  </td>
+                  <td>
+                    {getColorByRatings(item.fairRating)}
+                    {item.fairRating}
+                  </td>
+                  <td>
+                    <p className={`${getColorByStatus(item.status)}`}>
+                      {" "}
+                      {item.status}{" "}
+                    </p>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        setTimeout(() => {
+                          handleToggleView(true);
+                        }, 200);
+                      }}
+                      className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 

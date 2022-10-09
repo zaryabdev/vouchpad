@@ -1,9 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 export default function View(params) {
+  const navigate = useNavigate();
   return (
     <React.Fragment>
       <div className="row  my-2 d-flex align-items-center ps-4">
-        <p className="text-muted ms-1 py-0 mb-0"> Back</p>
+        <p
+          onClick={() => {
+            setTimeout(() => navigate("/dashboard"), 200);
+          }}
+          className="text-muted ms-1 py-0 mb-0"
+        >
+          {" "}
+          Back
+        </p>
       </div>
       <div className="row ps-4 ">
         <div className="p-4 ps-2">
