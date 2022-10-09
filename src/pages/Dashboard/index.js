@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Route, Routes, Link } from "react-router-dom";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 
 import icon from "../../assets/images/dashboard/icon-one.svg";
 import iconWhite from "../../assets/images/dashboard/icon-one-white.svg";
@@ -54,11 +56,18 @@ function Dashboard(params) {
   }
 
   function openNav() {
-    document.getElementById("side-navbar").style.width = "250px";
+    document.getElementById("mySidenav").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("mySidenav").style.width = "100%";
+    }, 10);
     // document.getElementById("main").style.marginLeft = "250px";
   }
   function closeNav() {
-    document.getElementById("side-navbar").style.width = "0";
+    document.getElementById("mySidenav").style.width = "0";
+    setTimeout(() => {
+      document.getElementById("mySidenav").style.display = "none";
+    }, 300);
+
     // document.getElementById("main").style.marginLeft = "0";
   }
 
@@ -78,8 +87,11 @@ function Dashboard(params) {
     <React.Fragment>
       <div id="dashboard" className="container-fluid px-0">
         <div className="row bg-dark">
-          <div className="col-sm-2">
-            <div className="row ">
+          <div
+            id="mySidenav"
+            className={`${width === "desktop" ? "col-sm-2" : "sidenav"}`}
+          >
+            <div className="row">
               <div className="col-sm-12">
                 <div className="row">
                   <img
@@ -92,6 +104,7 @@ function Dashboard(params) {
                     alt=""
                   />
                 </div>
+                <button onClick={() => closeNav()}>Clsoe </button>
               </div>
               <div className="col-sm-12">
                 <div className="row ms-4 my-2">
@@ -325,7 +338,7 @@ function Dashboard(params) {
             </div>
           </div>
           <div className="col-sm-10 bg-light">
-            <Header />
+            <Header openNav={openNav} />
             {toggleView === false && (
               <React.Fragment>
                 <div className="row ps-4 ">
@@ -341,8 +354,14 @@ function Dashboard(params) {
                     Here are your stats for December 22, 2022
                   </p>
                 </div>
-                {/* <TableOne data={data} handleToggleView={handleToggleView} /> */}
-
+                <div className="row ps-4 me-2">
+                  <TableTwo
+                    data={data}
+                    handleToggleView={handleToggleView}
+                    width={width}
+                  />
+                  {/* <TableOne data={data} handleToggleView={handleToggleView} /> */}
+                </div>
                 <div className="row mt-4">
                   <div className="d-flex justify-content-end align-items-center">
                     <nav aria-label="Page navigation example">
@@ -381,6 +400,183 @@ function Dashboard(params) {
         </div>
       </div>
     </React.Fragment>
+  );
+}
+
+function TableTwo({ data, handleToggleView, width }) {
+  function getColorByCreditScore(score) {
+    let color = darkRed;
+
+    if (score > 800) color = green;
+    else if (score > 700) color = orrange;
+    else if (score > 600) color = orrange;
+    else if (score > 500) color = parrot;
+    else if (score > 400) color = red;
+    else if (score <= 400) color = darkRed;
+
+    return (
+      <img
+        src={color}
+        className="mx-2"
+        style={{
+          width: "20px",
+          height: "20px",
+        }}
+        alt=""
+      />
+    );
+  }
+  function getColorByRatings(rating) {
+    let color = darkRed;
+
+    if (rating > 80) color = green;
+    else if (rating > 70) color = orrange;
+    else if (rating > 60) color = orrange;
+    else if (rating > 50) color = parrot;
+    else if (rating > 40) color = red;
+    else if (rating <= 40) color = darkRed;
+
+    return (
+      <img
+        src={color}
+        className="mx-2"
+        style={{
+          width: "20px",
+          height: "20px",
+        }}
+        alt=""
+      />
+    );
+  }
+
+  function getColorByStatus(status) {
+    let color = "";
+
+    if (status == "Loan Approved") color = "text-success";
+    else if (status == "Under Review") color = "text-warning";
+    else if (status == "Rejected") color = "text-danger";
+
+    return color;
+  }
+  return (
+    <div id="main-app" className="scroll-me px-0 table-shadow">
+      <Table className="table">
+        <Thead className="table-header sticky-top">
+          <Tr>
+            <Th scope="col-sm-1">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Case ID
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Student Name
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Date
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Loan Request (USD $)
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Credit Score &#169;
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Fair Rating &#169;
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Status
+              </p>
+            </Th>
+            <Th scope="col">
+              <p
+                className={`fw-light ${
+                  width === "mobile" ? "text-light" : "text-dark"
+                }`}
+              >
+                Action
+              </p>
+            </Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data.map((item) => {
+            return (
+              <Tr>
+                <Td>{item.caseId}</Td>
+                <Td>{item.studentName}</Td>
+                <Td>August {item.day}, 2022</Td>
+                <Td>$ {item.loan}</Td>
+                <Td>
+                  {getColorByCreditScore(item.creditScore)}
+                  {item.creditScore}
+                </Td>
+                <Td>
+                  {getColorByRatings(item.fairRating)}
+                  {item.fairRating}
+                </Td>
+                <Td>
+                  <p className={`${getColorByStatus(item.status)}`}>
+                    {" "}
+                    {item.status}{" "}
+                  </p>
+                </Td>
+                <Td>
+                  <button
+                    onClick={() => {
+                      setTimeout(() => {
+                        handleToggleView(true);
+                      }, 200);
+                    }}
+                    className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
+                  >
+                    View
+                  </button>
+                </Td>
+              </Tr>
+            );
+          })}
+        </Tbody>
+      </Table>
+    </div>
   );
 }
 
@@ -440,86 +636,84 @@ function TableOne({ data, handleToggleView }) {
     return color;
   }
   return (
-    <div className="row ps-4 me-2">
-      <div id="main-app" className="scroll-me px-0 table-shadow">
-        <table className="table ">
-          <thead className="table-header sticky-top">
-            <tr>
-              <th scope="col-sm-1">
-                <p className="fw-light text-light">Case ID</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Student Name</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Date</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Loan Request (USD $)</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Credit Score &#169;</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Fair Rating &#169;</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Status</p>
-              </th>
-              <th scope="col">
-                <p className="fw-light text-light">Action</p>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => {
-              return (
-                <tr>
-                  <th scope="row">{item.caseId}</th>
-                  <td>{item.studentName}</td>
-                  <td>August {item.day}, 2022</td>
-                  <td>$ {item.loan}</td>
-                  <td>
-                    {getColorByCreditScore(item.creditScore)}
-                    {item.creditScore}
-                  </td>
-                  <td>
-                    {getColorByRatings(item.fairRating)}
-                    {item.fairRating}
-                  </td>
-                  <td>
-                    <p className={`${getColorByStatus(item.status)}`}>
-                      {" "}
-                      {item.status}{" "}
-                    </p>
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        setTimeout(() => {
-                          handleToggleView(true);
-                        }, 200);
-                      }}
-                      className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+    <div id="main-app" className="scroll-me px-0 table-shadow">
+      <table className="table ">
+        <thead className="table-header sticky-top">
+          <tr>
+            <th scope="col-sm-1">
+              <p className="fw-light text-light">Case ID</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Student Name</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Date</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Loan Request (USD $)</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Credit Score &#169;</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Fair Rating &#169;</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Status</p>
+            </th>
+            <th scope="col">
+              <p className="fw-light text-light">Action</p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item) => {
+            return (
+              <tr>
+                <th scope="row">{item.caseId}</th>
+                <td>{item.studentName}</td>
+                <td>August {item.day}, 2022</td>
+                <td>$ {item.loan}</td>
+                <td>
+                  {getColorByCreditScore(item.creditScore)}
+                  {item.creditScore}
+                </td>
+                <td>
+                  {getColorByRatings(item.fairRating)}
+                  {item.fairRating}
+                </td>
+                <td>
+                  <p className={`${getColorByStatus(item.status)}`}>
+                    {" "}
+                    {item.status}{" "}
+                  </p>
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      setTimeout(() => {
+                        handleToggleView(true);
+                      }, 200);
+                    }}
+                    className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
+                  >
+                    View
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
 
-function Header() {
+function Header({ openNav }) {
   return (
     <div className="row border-bottom">
       <div className="d-flex justify-content-end align-items-center">
-        <div className="p-2">
+        <div onClick={() => openNav()} className="p-2">
           <img
             src={gearIcon}
             style={{
