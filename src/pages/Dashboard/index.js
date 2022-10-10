@@ -15,7 +15,11 @@ import parrot from "../../assets/images/dashboard/parrot.png";
 import yellow from "../../assets/images/dashboard/yellow.png";
 import red from "../../assets/images/dashboard/red.png";
 import logo from "../../assets/images/dashboard/brand-logo.png";
-import arrowDown from "../../assets/images/dashboard/arrow-down.png";
+import listIcon from "../../assets/images/dashboard/list-icon.svg";
+import xIcon from "../../assets/images/dashboard/x-icon.svg";
+import arrowDown from "../../assets/images/dashboard/chevron-down.svg";
+import arrowUp from "../../assets/images/dashboard/chevron-up.svg";
+import searchIcon from "../../assets/images/dashboard/search.svg";
 
 import getData from "../../utils/makeData";
 
@@ -23,18 +27,21 @@ import View from "../View";
 
 function Dashboard(params) {
   const data = React.useMemo(() => getData(10), []);
-  const navigate = useNavigate();
+  const [selectedRecord, setSelectedRecord] = useState({});
 
-  const [showNavLinkItems, setShowNavItems] = useState(false);
-  const [toggleView, setToggleView] = useState(false);
+  const [showViewPage, setShowViewPage] = useState(false);
   const [width, setWidth] = useState("desktop");
 
   useEffect(() => {
     getCurrentWidthAndHeight();
   }, []);
 
-  function handleToggleView(value) {
-    setToggleView(value);
+  function handleShowViewPage(value) {
+    setShowViewPage(value);
+  }
+
+  function handleSelectedRecord(record) {
+    setSelectedRecord(record);
   }
 
   function getCurrentWidthAndHeight() {
@@ -55,195 +62,286 @@ function Dashboard(params) {
     };
   }
 
-  function openNav() {
-    document.getElementById("mySidenav").style.display = "block";
-    setTimeout(() => {
-      document.getElementById("mySidenav").style.width = "100%";
-    }, 10);
-    // document.getElementById("main").style.marginLeft = "250px";
-  }
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    setTimeout(() => {
-      document.getElementById("mySidenav").style.display = "none";
-    }, 300);
-
-    // document.getElementById("main").style.marginLeft = "0";
-  }
-
-  // function toggleSurveyItems() {
-  //   debugger;
-  //   let value = mySurvey.current.style.display;
-  //   if (value === "none" || value === "") {
-  //     mySurvey.current.style.display = "display";
-  //     newSurvey.current.style.display = "display";
-  //   } else if (value === "display") {
-  //     mySurvey.current.style.display = "hidden";
-  //     newSurvey.current.style.display = "hidden";
-  //   }
-  // }
-
   return (
     <React.Fragment>
       <div id="dashboard" className="container-fluid px-0">
-        <div className="row bg-dark">
-          <div
-            id="mySidenav"
-            className={`${width === "desktop" ? "col-sm-2" : "sidenav"}`}
-          >
-            <div className="row">
-              <div className="col-sm-12">
-                <div className="row">
-                  <img
-                    className="mt-4 mb-3"
-                    style={{
-                      width: "130px",
-                      height: "110px",
-                    }}
-                    src={logo}
-                    alt=""
-                  />
-                </div>
-                <button onClick={() => closeNav()}>Clsoe </button>
+        <div className="row nav-bg">
+          {width === "desktop" && (
+            <div id="navbar-desktop" className="col-sm-2">
+              <div className="row">
+                <BrandLogo width={width} />
+                <NavLinks />
               </div>
-              <div className="col-sm-12">
-                <div className="row ms-4 my-2">
-                  <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
-                    Dashboard
-                    <span class="position-absolute top-50 start-0 translate-middle">
-                      <div className="icon-bg bg-light">
-                        <img
-                          src={icon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                    </span>
-                  </div>
+            </div>
+          )}
+          {width === "mobile" && (
+            <div
+              class="offcanvas offcanvas-start nav-bg px-0"
+              tabindex="-1"
+              id="offcanvasWithBackdrop"
+              aria-labelledby="offcanvasWithBackdropLabel"
+            >
+              <div class="offcanvas-body ">
+                <div className="row">
+                  <BrandLogo width={width} />
+                  <NavLinks />
                 </div>
-                <div className="row ms-4 my-2">
-                  <div class="position-relative ps-4 py-3 color-white">
-                    Support Messages
-                    <span class="position-absolute top-50 start-0 translate-middle">
-                      <div className="icon-bg ">
-                        <img
-                          src={icon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                    </span>
-                  </div>
-                </div>
-                <div className="row ms-4 mt-2">
-                  <div
-                    class={`position-relative ps-4 py-3 color-white ${
-                      showNavLinkItems === true ? "sidebar-item-bg" : ""
-                    }`}
-                  >
-                    <div class="d-flex align-items-center">
-                      <div class="">Survey</div>
-                      <div class="ms-auto">
-                        <img
-                          onClick={() => setShowNavItems(!showNavLinkItems)}
-                          src={arrowDown}
-                          className="flip-img"
-                          style={{
-                            width: "10px",
-                            height: "10px",
-                            cursor: "pointer",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                    </div>
-                    <span class="position-absolute top-50 start-0 translate-middle">
-                      <div
-                        className={`icon-bg ${
-                          showNavLinkItems === true ? "bg-light" : ""
-                        }`}
-                      >
-                        <img
-                          src={icon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                    </span>
-                  </div>
-                </div>
-                {showNavLinkItems === true && (
-                  <>
-                    <div className="row ms-5 my-0">
-                      <div class="d-flex align-items-center sidebar-item-bg-2a">
-                        <div class="p-2 pe-0 color-white">
-                          <img
-                            src={iconWhite}
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                            }}
-                            alt=""
-                          />
-                        </div>
-                        <div class="p-2 color-white">My surveys</div>
-                      </div>
-                    </div>
-                    <div className="row ms-5 my-0">
-                      <div class="d-flex align-items-center sidebar-item-bg-2b">
-                        <div class="p-2 pe-0 color-white">
-                          <img
-                            src={iconWhite}
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                            }}
-                            alt=""
-                          />
-                        </div>
-                        <div class="p-2 pe-0 color-white">
-                          Create new survey
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
+              </div>
+            </div>
+          )}
 
-                <div className="row ms-4 mb-auto">
-                  <div
-                    onClick={() => {
-                      setTimeout(() => navigate("/login"), 200);
-                    }}
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    class="position-relative ps-4 py-3 color-white"
-                  >
-                    Log out
-                    <span class="position-absolute top-50 start-0 translate-middle">
-                      <div className="icon-bg">
-                        <img
-                          src={icon}
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                          }}
-                          alt=""
-                        />
-                      </div>
-                    </span>
+          <div
+            className={` ${
+              width === "desktop" ? "col-sm-10 " : "col-sm-12 "
+            }  bg-white`}
+          >
+            <Header width={width} />
+
+            {showViewPage === false && (
+              <React.Fragment>
+                <div className="row ps-4 ">
+                  <div className="p-4 d-flex justify-content-between">
+                    <div className="">
+                      <h3 className="fw-bold text-dark"> All Cases {width}</h3>
+                    </div>
+                    <div className="p-2">
+                      <img src={searchIcon} alt="" />
+                    </div>
                   </div>
                 </div>
-                {/* <div className="row">
+                <div className="row ps-4">
+                  <p className="text-muted ms-1">
+                    Here are your stats for December 22, 2022
+                  </p>
+                </div>
+                <div className="row ps-4 me-2">
+                  <TableTwo
+                    data={data}
+                    handleShowViewPage={handleShowViewPage}
+                    width={width}
+                    onSelect={handleSelectedRecord}
+                  />
+                  {/* <TableOne data={data} handleShowViewPage={handleShowViewPage} /> */}
+                </div>
+                <div className="row mt-4">
+                  <div className="d-flex justify-content-end align-items-center">
+                    <nav aria-label="Page navigation example">
+                      <ul className="pagination justify-content-center">
+                        <li className="page-item disabled">
+                          <a className="page-link">Previous</a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            1
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            2
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            3
+                          </a>
+                        </li>
+                        <li className="page-item">
+                          <a className="page-link" href="#">
+                            Next
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </React.Fragment>
+            )}
+            {showViewPage === true && (
+              <View
+                record={selectedRecord}
+                handleShowViewPage={handleShowViewPage}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+function BrandLogo({ width }) {
+  return (
+    <div className="col-sm-12">
+      <div className="d-flex position-relative justify-content-center">
+        {width === "mobile" && (
+          <div class="position-absolute top-0 end-0">
+            <img
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+              className="ms-auto mt-4 mb-3"
+              style={{
+                width: "25px",
+                height: "25px",
+              }}
+              src={xIcon}
+              alt=""
+            />
+          </div>
+        )}
+        <img
+          className="mt-4 mb-3"
+          style={{
+            width: "100px",
+            height: "100px",
+          }}
+          src={logo}
+          alt=""
+        />
+      </div>
+    </div>
+  );
+}
+
+function NavLinks() {
+  const [showNavLinkItems, setShowNavItems] = useState(false);
+  const navigate = useNavigate();
+  return (
+    <div className="col-sm-12">
+      <div className="row ms-4 my-2">
+        <div class="position-relative ps-4 py-3 color-white sidebar-item-bg">
+          Dashboard
+          <span class="position-absolute top-50 start-0 translate-middle">
+            <div className="icon-bg bg-light">
+              <img
+                src={icon}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                }}
+                alt=""
+              />
+            </div>
+          </span>
+        </div>
+      </div>
+      <div className="row ms-4 my-2">
+        <div class="position-relative ps-4 py-3 color-white">
+          Support Messages
+          <span class="position-absolute top-50 start-0 translate-middle">
+            <div className="icon-bg ">
+              <img
+                src={icon}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                }}
+                alt=""
+              />
+            </div>
+          </span>
+        </div>
+      </div>
+      <div className="row ms-4 mt-2">
+        <div
+          class={`position-relative ps-4 py-3 color-white ${
+            showNavLinkItems === true ? "sidebar-item-bg" : ""
+          }`}
+        >
+          <div class="d-flex align-items-center">
+            <div class="">Survey</div>
+            <div class="ms-auto">
+              <img
+                onClick={() => setShowNavItems(!showNavLinkItems)}
+                src={showNavLinkItems === true ? arrowUp : arrowDown}
+                className="flip-img"
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  cursor: "pointer",
+                }}
+                alt=""
+              />
+            </div>
+          </div>
+          <span class="position-absolute top-50 start-0 translate-middle">
+            <div
+              className={`icon-bg ${
+                showNavLinkItems === true ? "bg-light" : ""
+              }`}
+            >
+              <img
+                src={icon}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                }}
+                alt=""
+              />
+            </div>
+          </span>
+        </div>
+      </div>
+      {showNavLinkItems === true && (
+        <>
+          <div className="row ms-5 my-0">
+            <div class="d-flex align-items-center sidebar-item-bg-2a">
+              <div class="p-2 pe-0 color-white">
+                <img
+                  src={iconWhite}
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                  alt=""
+                />
+              </div>
+              <div class="p-2 color-white">My surveys</div>
+            </div>
+          </div>
+          <div className="row ms-5 my-0">
+            <div class="d-flex align-items-center sidebar-item-bg-2b">
+              <div class="p-2 pe-0 color-white">
+                <img
+                  src={iconWhite}
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                  }}
+                  alt=""
+                />
+              </div>
+              <div class="p-2 pe-0 color-white">Create new survey</div>
+            </div>
+          </div>
+        </>
+      )}
+
+      <div className="row ms-4 mb-auto">
+        <div
+          onClick={() => {
+            setTimeout(() => navigate("/login"), 200);
+          }}
+          style={{
+            cursor: "pointer",
+          }}
+          class="position-relative ps-4 py-3 color-white"
+        >
+          Log out
+          <span class="position-absolute top-50 start-0 translate-middle">
+            <div className="icon-bg">
+              <img
+                src={icon}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                }}
+                alt=""
+              />
+            </div>
+          </span>
+        </div>
+      </div>
+      {/* <div className="row">
                   <div
                     class="d-flex align-items-start flex-column"
                     style={{ height: "80vh" }}
@@ -302,7 +400,7 @@ function Dashboard(params) {
                     <div class="">Log out</div>
                   </div>
                 </div> */}
-                {/* <ul className="ps-5 navbar-nav">
+      {/* <ul className="ps-5 navbar-nav">
                   <li className="nav-item">
                     <div className="d-flex flex-row align-items-end mb-3">
                       <img
@@ -334,76 +432,11 @@ function Dashboard(params) {
                     </div>
                   </li>
                 </ul> */}
-              </div>
-            </div>
-          </div>
-          <div className="col-sm-10 bg-light">
-            <Header openNav={openNav} />
-            {toggleView === false && (
-              <React.Fragment>
-                <div className="row ps-4 ">
-                  <div className="p-4 d-flex justify-content-between">
-                    <div className="">
-                      <h3 className="fw-bold"> All Cases</h3>
-                    </div>
-                    <div className="p-2">Search Bar</div>
-                  </div>
-                </div>
-                <div className="row ps-4">
-                  <p className="text-muted ms-1">
-                    Here are your stats for December 22, 2022
-                  </p>
-                </div>
-                <div className="row ps-4 me-2">
-                  <TableTwo
-                    data={data}
-                    handleToggleView={handleToggleView}
-                    width={width}
-                  />
-                  {/* <TableOne data={data} handleToggleView={handleToggleView} /> */}
-                </div>
-                <div className="row mt-4">
-                  <div className="d-flex justify-content-end align-items-center">
-                    <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-center">
-                        <li className="page-item disabled">
-                          <a className="page-link">Previous</a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            Next
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                </div>
-              </React.Fragment>
-            )}
-            {toggleView === true && <View />}
-          </div>
-        </div>
-      </div>
-    </React.Fragment>
+    </div>
   );
 }
 
-function TableTwo({ data, handleToggleView, width }) {
+function TableTwo({ data, handleShowViewPage, width, onSelect }) {
   function getColorByCreditScore(score) {
     let color = darkRed;
 
@@ -452,135 +485,148 @@ function TableTwo({ data, handleToggleView, width }) {
   function getColorByStatus(status) {
     let color = "";
 
-    if (status == "Loan Approved") color = "text-success";
-    else if (status == "Under Review") color = "text-warning";
-    else if (status == "Rejected") color = "text-danger";
+    if (status == "Loan Approved") color = "green";
+    else if (status == "Under Review") color = "yellow";
+    else if (status == "Rejected") color = "red";
 
     return color;
   }
   return (
-    <div id="main-app" className="scroll-me px-0 table-shadow">
-      <Table className="table">
-        <Thead className="table-header sticky-top">
-          <Tr>
-            <Th scope="col-sm-1">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Case ID
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Student Name
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Date
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Loan Request (USD $)
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Credit Score &#169;
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Fair Rating &#169;
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Status
-              </p>
-            </Th>
-            <Th scope="col">
-              <p
-                className={`fw-light ${
-                  width === "mobile" ? "text-light" : "text-dark"
-                }`}
-              >
-                Action
-              </p>
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {data.map((item) => {
-            return (
-              <Tr>
-                <Td>{item.caseId}</Td>
-                <Td>{item.studentName}</Td>
-                <Td>August {item.day}, 2022</Td>
-                <Td>$ {item.loan}</Td>
-                <Td>
-                  {getColorByCreditScore(item.creditScore)}
-                  {item.creditScore}
-                </Td>
-                <Td>
-                  {getColorByRatings(item.fairRating)}
-                  {item.fairRating}
-                </Td>
-                <Td>
-                  <p className={`${getColorByStatus(item.status)}`}>
-                    {" "}
-                    {item.status}{" "}
-                  </p>
-                </Td>
-                <Td>
-                  <button
-                    onClick={() => {
-                      setTimeout(() => {
-                        handleToggleView(true);
-                      }, 200);
-                    }}
-                    className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
-                  >
-                    View
-                  </button>
-                </Td>
-              </Tr>
-            );
-          })}
-        </Tbody>
-      </Table>
-    </div>
+    <React.Fragment>
+      {width === "mobile" && (
+        <div
+          style={{
+            height: "30px",
+            backgroundColor: "#037ae0",
+            borderRadius: "8px 8px 0px 0px",
+          }}
+          className="col-sm-12"
+        ></div>
+      )}
+      <div id="main-app" className="scroll-me px-0 table-shadow">
+        <Table className="table">
+          <Thead className="table-header sticky-top">
+            <Tr className="tr-border">
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Case ID
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Student Name
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Date
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Loan Request (USD $)
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Credit Score &#169;
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Fair Rating &#169;
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Status
+                </p>
+              </Th>
+              <Th scope="col">
+                <p
+                  className={`fw-light ${
+                    width === "mobile" ? "text-dark" : "text-dark"
+                  }`}
+                >
+                  Action
+                </p>
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data.map((item) => {
+              return (
+                <Tr>
+                  <Td>{item.caseId}</Td>
+                  <Td>{item.studentName}</Td>
+                  <Td>August {item.day}, 2022</Td>
+                  <Td>$ {item.loan}</Td>
+                  <Td>
+                    {getColorByCreditScore(item.creditScore)}
+                    {item.creditScore}
+                  </Td>
+                  <Td>
+                    {getColorByRatings(item.fairRating)}
+                    {item.fairRating}
+                  </Td>
+                  <Td>
+                    <p className={`${getColorByStatus(item.status)}`}>
+                      {" "}
+                      {item.status}{" "}
+                    </p>
+                  </Td>
+                  <Td>
+                    <button
+                      onClick={() => {
+                        onSelect(item);
+                        setTimeout(() => {
+                          handleShowViewPage(true);
+                        }, 200);
+                      }}
+                      className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
+                    >
+                      View
+                    </button>
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </div>
+    </React.Fragment>
   );
 }
 
-function TableOne({ data, handleToggleView }) {
+function TableOne({ data, handleShowViewPage }) {
   function getColorByCreditScore(score) {
     let color = darkRed;
 
@@ -692,7 +738,7 @@ function TableOne({ data, handleToggleView }) {
                   <button
                     onClick={() => {
                       setTimeout(() => {
-                        handleToggleView(true);
+                        handleShowViewPage(true);
                       }, 200);
                     }}
                     className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
@@ -709,11 +755,29 @@ function TableOne({ data, handleToggleView }) {
   );
 }
 
-function Header({ openNav }) {
+function Header({ width }) {
   return (
     <div className="row border-bottom">
       <div className="d-flex justify-content-end align-items-center">
-        <div onClick={() => openNav()} className="p-2">
+        {width === "mobile" && (
+          <div
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBackdrop"
+            aria-controls="offcanvasWithBackdrop"
+            className="me-auto px-3 py-2"
+          >
+            <img
+              src={listIcon}
+              style={{
+                width: "25px",
+                height: "25px",
+              }}
+              alt=""
+            />
+          </div>
+        )}
+
+        <div className="p-2">
           <img
             src={gearIcon}
             style={{
@@ -723,9 +787,9 @@ function Header({ openNav }) {
             alt=""
           />
         </div>
-        <div className="p-2">Welcome back,</div>
-        <div className="p-2 fw-semibold"> John</div>
-        <div className="p-2">
+        <div className="p-2 text-dark">Welcome back,</div>
+        <div className="p-2 text-dark fw-semibold"> John</div>
+        <div className="p-2 text-dark">
           <img
             src={profilePic}
             style={{

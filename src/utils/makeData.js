@@ -21,10 +21,37 @@ const newPerson = () => {
       subset: "manly",
       separator: " ",
     }),
+    partnerName: namor.generate({
+      words: 1,
+      saltLength: 0,
+      numbers: 0,
+      subset: "manly",
+      separator: " ",
+    }),
+    country:
+      statusChance > 0.66
+        ? "United States"
+        : statusChance > 0.33
+        ? "France"
+        : "China",
+    city: namor.generate({
+      words: 1,
+      saltLength: 0,
+      numbers: 0,
+      subset: "manly",
+      separator: " ",
+    }),
     loan: Math.floor(Math.random() * 10000),
     creditScore: Math.floor(Math.random() * 1000) + 200,
     fairRating: Math.floor(Math.random() * 100) + 20,
     day: Math.floor(Math.random() * 31),
+    partnerInstitute: namor.generate({
+      words: 2,
+      saltLength: 0,
+      numbers: 0,
+      subset: "manly",
+      separator: " ",
+    }),
     status:
       statusChance > 0.66
         ? "Loan Approved"

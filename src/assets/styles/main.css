@@ -61,7 +61,7 @@ tbody > tr > td {
 .scroll-me {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 350px;
+  height: 360px;
   width: 100%;
   border-radius: 6px;
 }
@@ -74,7 +74,8 @@ tbody > tr > td {
   color: #fff;
 }
 
-.table-shadow {
+.table-shadow,
+.card-shadow {
   box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px,
     rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
@@ -106,25 +107,57 @@ tbody > tr > td {
   border-radius: 8px 8px 0px 8px;
 }
 
-.flip-img {
-  -webkit-transform: scaleX(-1);
-  transform: scaleX(-1);
+.bg-white {
+  color: #fff;
 }
 
-.sidenav {
-  /* display: none; */
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #111; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+.red {
+  color: #d8042a;
 }
 
-#dashboard {
-  transition: margin-left 0.5s;
+.green {
+  color: #02d93d;
+}
+
+.yellow {
+  color: #ffba07;
+}
+
+.btn-left {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.btn-mid {
+  border-radius: 0px;
+}
+
+.btn-right {
+  border-radius: 0px 15px 15px 0px;
+}
+
+.btn-left-2 {
+  border-radius: 0px 0px 0px 15px;
+}
+
+.btn-right-2 {
+  border-radius: 0px 0px 15px 0px;
+}
+
+.btn-active,
+.card-bg {
+  background-color: #037ae0;
+}
+.btn-inactive {
+  background-color: #d5d5d5;
+}
+
+.btn-active:hover {
+  background-color: #037ae0;
+}
+.btn-inactive:hover {
+  background-color: #037ae0;
+}
+
+.card-height {
+  min-height: 260px;
 }
