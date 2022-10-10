@@ -64,8 +64,19 @@ function Dashboard(params) {
 
   return (
     <React.Fragment>
-      <div id="dashboard" className="container-fluid px-0">
-        <div className="row nav-bg">
+      <div
+        id="dashboard"
+        style={{
+          height: "100vh",
+        }}
+        className=" container-fluid px-0"
+      >
+        <div
+          style={{
+            height: "100vh",
+          }}
+          className="row nav-bg"
+        >
           {width === "desktop" && (
             <div id="navbar-desktop" className="col-sm-2">
               <div className="row">
@@ -115,13 +126,12 @@ function Dashboard(params) {
                   </p>
                 </div>
                 <div className="row ps-4 me-2">
-                  <TableTwo
+                  <Table
                     data={data}
                     handleShowViewPage={handleShowViewPage}
                     width={width}
                     onSelect={handleSelectedRecord}
                   />
-                  {/* <TableOne data={data} handleShowViewPage={handleShowViewPage} /> */}
                 </div>
                 <div className="row mt-4">
                   <div className="d-flex justify-content-end align-items-center">
@@ -341,102 +351,11 @@ function NavLinks() {
           </span>
         </div>
       </div>
-      {/* <div className="row">
-                  <div
-                    class="d-flex align-items-start flex-column"
-                    style={{ height: "80vh" }}
-                  >
-                    <div class="row bg-primary">
-                      <div class="col-sm-12   sidebar-item-bg position-relative">
-                        Dashboard
-                        <span class="position-absolute top-50 start-0 translate-middle">
-                          <div className="icon-bg bg-light">
-                            <img
-                              src={groupIcon}
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                              }}
-                              alt=""
-                            />
-                          </div>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="">
-                      <div
-                        type="button"
-                        class="btn btn-primary position-relative"
-                      >
-                        Support Messages{" "}
-                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
-                          <span class="visually-hidden"></span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="mb-auto">
-                      <div
-                        type="button"
-                        class="btn btn-primary position-relative"
-                      >
-                        <div class="d-flex align-items-center">
-                          <div class="p-2">Flex item 1</div>
-                          <div class="p-2">Flex item 2</div>
-                        </div>
-                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
-                          <span class="visually-hidden"></span>
-                        </span>
-                      </div>
-                      <div
-                        type="button"
-                        class="btn btn-primary position-relative"
-                      >
-                        Logout
-                        <span class="position-absolute top-50 start-0 translate-middle badge border border-light rounded-circle bg-danger p-2">
-                          <span class="visually-hidden"></span>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="">Log out</div>
-                  </div>
-                </div> */}
-      {/* <ul className="ps-5 navbar-nav">
-                  <li className="nav-item">
-                    <div className="d-flex flex-row align-items-end mb-3">
-                      <img
-                        src={groupIcon}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                        }}
-                        alt=""
-                      />
-                      <Link className="nav-link active text-light">
-                        Dashboard
-                      </Link>
-                    </div>
-                  </li>
-                  <li className="nav-item">
-                    <div className="d-flex flex-row align-items-end mb-3">
-                      <img
-                        src={groupIcon}
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                        }}
-                        alt=""
-                      />
-                      <Link className="nav-link active text-light">
-                        Support Messages
-                      </Link>
-                    </div>
-                  </li>
-                </ul> */}
     </div>
   );
 }
 
-function TableTwo({ data, handleShowViewPage, width, onSelect }) {
+function Table({ data, handleShowViewPage, width, onSelect }) {
   function getColorByCreditScore(score) {
     let color = darkRed;
 
@@ -623,135 +542,6 @@ function TableTwo({ data, handleShowViewPage, width, onSelect }) {
         </Table>
       </div>
     </React.Fragment>
-  );
-}
-
-function TableOne({ data, handleShowViewPage }) {
-  function getColorByCreditScore(score) {
-    let color = darkRed;
-
-    if (score > 800) color = green;
-    else if (score > 700) color = orrange;
-    else if (score > 600) color = orrange;
-    else if (score > 500) color = parrot;
-    else if (score > 400) color = red;
-    else if (score <= 400) color = darkRed;
-
-    return (
-      <img
-        src={color}
-        className="mx-2"
-        style={{
-          width: "20px",
-          height: "20px",
-        }}
-        alt=""
-      />
-    );
-  }
-  function getColorByRatings(rating) {
-    let color = darkRed;
-
-    if (rating > 80) color = green;
-    else if (rating > 70) color = orrange;
-    else if (rating > 60) color = orrange;
-    else if (rating > 50) color = parrot;
-    else if (rating > 40) color = red;
-    else if (rating <= 40) color = darkRed;
-
-    return (
-      <img
-        src={color}
-        className="mx-2"
-        style={{
-          width: "20px",
-          height: "20px",
-        }}
-        alt=""
-      />
-    );
-  }
-
-  function getColorByStatus(status) {
-    let color = "";
-
-    if (status == "Loan Approved") color = "text-success";
-    else if (status == "Under Review") color = "text-warning";
-    else if (status == "Rejected") color = "text-danger";
-
-    return color;
-  }
-  return (
-    <div id="main-app" className="scroll-me px-0 table-shadow">
-      <table className="table ">
-        <thead className="table-header sticky-top">
-          <tr>
-            <th scope="col-sm-1">
-              <p className="fw-light text-light">Case ID</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Student Name</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Date</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Loan Request (USD $)</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Credit Score &#169;</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Fair Rating &#169;</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Status</p>
-            </th>
-            <th scope="col">
-              <p className="fw-light text-light">Action</p>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => {
-            return (
-              <tr>
-                <th scope="row">{item.caseId}</th>
-                <td>{item.studentName}</td>
-                <td>August {item.day}, 2022</td>
-                <td>$ {item.loan}</td>
-                <td>
-                  {getColorByCreditScore(item.creditScore)}
-                  {item.creditScore}
-                </td>
-                <td>
-                  {getColorByRatings(item.fairRating)}
-                  {item.fairRating}
-                </td>
-                <td>
-                  <p className={`${getColorByStatus(item.status)}`}>
-                    {" "}
-                    {item.status}{" "}
-                  </p>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      setTimeout(() => {
-                        handleShowViewPage(true);
-                      }, 200);
-                    }}
-                    className="btn btn-sm btn-primary rounded-5 px-3 table-shadow"
-                  >
-                    View
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
   );
 }
 

@@ -9,16 +9,6 @@ import yellow from "../../assets/images/dashboard/yellow.png";
 import red from "../../assets/images/dashboard/red.png";
 
 export default function View({ record, handleShowViewPage }) {
-  const navigate = useNavigate();
-
-  // const [buttons] = useState([
-  //   "loan",
-  //   "message",
-  //   "checklist",
-  //   "student",
-  //   "partner",
-  // ]);
-
   const [selectedBtn, setSelectedBtn] = useState({
     loan: "true",
     message: "false",
@@ -28,8 +18,6 @@ export default function View({ record, handleShowViewPage }) {
   });
 
   function handleSelectedOption(name) {
-    debugger;
-
     let keys = Object.keys(selectedBtn);
     let obj = {};
 
@@ -40,7 +28,6 @@ export default function View({ record, handleShowViewPage }) {
         obj[key] = "false";
       }
     });
-    console.log(obj);
     setSelectedBtn(obj);
   }
 
