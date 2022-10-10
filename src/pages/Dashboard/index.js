@@ -113,7 +113,7 @@ function Dashboard(params) {
                 <div className="row ps-4 ">
                   <div className="p-4 d-flex justify-content-between">
                     <div className="">
-                      <h3 className="fw-bold text-dark"> All Cases {width}</h3>
+                      <h3 className="fw-bold text-dark"> All Cases</h3>
                     </div>
                     <div className="p-2">
                       <img src={searchIcon} alt="" />
@@ -126,7 +126,7 @@ function Dashboard(params) {
                   </p>
                 </div>
                 <div className="row ps-4 me-2">
-                  <Table
+                  <TableView
                     data={data}
                     handleShowViewPage={handleShowViewPage}
                     width={width}
@@ -355,7 +355,7 @@ function NavLinks() {
   );
 }
 
-function Table({ data, handleShowViewPage, width, onSelect }) {
+function TableView({ data, handleShowViewPage, width, onSelect }) {
   function getColorByCreditScore(score) {
     let color = darkRed;
 
