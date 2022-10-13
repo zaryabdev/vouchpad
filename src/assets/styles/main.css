@@ -5,6 +5,7 @@ body {
   font-family: "Poppins";
   font-size: 12px;
   overflow-x: hidden;
+  /* overflow-y: hidden; */
   /* height: 100vh; */
 }
 
@@ -164,10 +165,10 @@ tbody > tr > td {
 }
 
 .btn-active:hover {
-  background-color: #037ae0;
+  background-color: #59b1fc;
 }
 .btn-inactive:hover {
-  background-color: #037ae0;
+  background-color: #59b1fc;
 }
 
 .card-height {
@@ -188,6 +189,15 @@ tbody > tr > td {
   border: hidden;
 }
 
-tr {
-  border: 1px solid #e5e5e5 !important;
+th > p {
+  color: white;
+}
+
+@media only screen and (max-width: 600px) {
+  tr {
+    border: 1px solid #e5e5e5 !important;
+  }
+  th > p {
+    color: black;
+  }
 }

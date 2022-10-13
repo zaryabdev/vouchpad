@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Route, Routes, Link } from "react-router-dom";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
+import { BsSearch } from "react-icons/bs";
 
 import icon from "../../assets/images/dashboard/icon-one.svg";
 import iconWhite from "../../assets/images/dashboard/icon-one-white.svg";
@@ -71,12 +72,7 @@ function Dashboard(params) {
         }}
         className=" container-fluid px-0"
       >
-        <div
-          // style={{
-          //   height: "100vh",
-          // }}
-          className="row nav-bg"
-        >
+        <div className="row nav-bg">
           {width === "desktop" && (
             <div id="navbar-desktop" className="col-sm-2">
               <div className="row">
@@ -100,7 +96,6 @@ function Dashboard(params) {
               </div>
             </div>
           )}
-
           <div
             className={` ${
               width === "desktop" ? "col-sm-10 " : "col-sm-12 "
@@ -110,58 +105,60 @@ function Dashboard(params) {
 
             {showViewPage === false && (
               <React.Fragment>
-                <div className="row ps-4 ">
-                  <div className="p-4 d-flex justify-content-between">
-                    <div className="">
-                      <h3 className="fw-bold text-dark"> All Cases</h3>
-                    </div>
-                    <div className="p-2">
-                      <img src={searchIcon} alt="" />
+                <div className="container-fluid px-3">
+                  <div className="row">
+                    <div className="my-2 d-flex flex-row justify-content-between align-items-center">
+                      <span>
+                        <h3 className="fw-bold text-dark mb-0"> All Cases</h3>
+                      </span>
+                      <span className="p-2">
+                        <img src={searchIcon} alt="" />
+                      </span>
                     </div>
                   </div>
-                </div>
-                <div className="row ps-4">
-                  <p className="text-muted ms-1">
-                    Here are your stats for December 22, 2022
-                  </p>
-                </div>
-                <div className="row ps-4 me-2">
-                  <TableView
-                    data={data}
-                    handleShowViewPage={handleShowViewPage}
-                    width={width}
-                    onSelect={handleSelectedRecord}
-                  />
-                </div>
-                <div className="row mt-4">
-                  <div className="d-flex justify-content-end align-items-center">
-                    <nav aria-label="Page navigation example">
-                      <ul className="pagination justify-content-center">
-                        <li className="page-item disabled">
-                          <a className="page-link">Previous</a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            1
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            3
-                          </a>
-                        </li>
-                        <li className="page-item">
-                          <a className="page-link" href="#">
-                            Next
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
+                  <div className="row">
+                    <p className="text-muted ms-1">
+                      Here are your stats for December 22, 2022
+                    </p>
+                  </div>
+                  <div className="row px-1">
+                    <TableView
+                      data={data}
+                      handleShowViewPage={handleShowViewPage}
+                      width={width}
+                      onSelect={handleSelectedRecord}
+                    />
+                  </div>
+                  <div className="row mt-4">
+                    <div className="d-flex justify-content-end align-items-center">
+                      <nav aria-label="Page navigation example">
+                        <ul className="pagination justify-content-center">
+                          <li className="page-item disabled">
+                            <a className="page-link">Previous</a>
+                          </li>
+                          <li className="page-item">
+                            <a className="page-link" href="#">
+                              1
+                            </a>
+                          </li>
+                          <li className="page-item">
+                            <a className="page-link" href="#">
+                              2
+                            </a>
+                          </li>
+                          <li className="page-item">
+                            <a className="page-link" href="#">
+                              3
+                            </a>
+                          </li>
+                          <li className="page-item">
+                            <a className="page-link" href="#">
+                              Next
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
                   </div>
                 </div>
               </React.Fragment>
@@ -369,7 +366,7 @@ function TableView({ data, handleShowViewPage, width, onSelect }) {
     return (
       <img
         src={color}
-        className="mx-2"
+        className="me-2"
         style={{
           width: "20px",
           height: "20px",
@@ -391,7 +388,7 @@ function TableView({ data, handleShowViewPage, width, onSelect }) {
     return (
       <img
         src={color}
-        className="mx-2"
+        className="me-2"
         style={{
           width: "20px",
           height: "20px",
@@ -427,76 +424,28 @@ function TableView({ data, handleShowViewPage, width, onSelect }) {
           <Thead className="table-header sticky-top">
             <Tr className="tr-border">
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Case ID
-                </p>
+                <p>Case ID</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Student Name
-                </p>
+                <p>Student Name</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Date
-                </p>
+                <p>Date</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Loan Request (USD $)
-                </p>
+                <p>Loan Request (USD $)</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Credit Score &#169;
-                </p>
+                <p>Credit Score &#169;</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Fair Rating &#169;
-                </p>
+                <p>Fair Rating &#169;</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Status
-                </p>
+                <p>Status</p>
               </Th>
               <Th scope="col">
-                <p
-                  className={`fw-light ${
-                    width === "mobile" ? "text-dark" : "text-dark"
-                  }`}
-                >
-                  Action
-                </p>
+                <p>Action</p>
               </Th>
             </Tr>
           </Thead>
