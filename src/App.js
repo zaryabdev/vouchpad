@@ -6,14 +6,6 @@ import { Dashboard } from "./pages/Dashboard";
 import View from "./pages/View";
 
 export default function App() {
-  useEffect(() => {
-    const tooltipTriggerList = document.querySelectorAll(
-      '[data-bs-toggle="tooltip"]'
-    );
-    const tooltipList = [...tooltipTriggerList].map(
-      (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
-    );
-  }, []);
   return (
     <React.Fragment>
       {/* <nav>
@@ -31,6 +23,7 @@ export default function App() {
       </nav> */}
 
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/view" element={<View />} />

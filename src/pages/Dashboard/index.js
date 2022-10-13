@@ -109,16 +109,6 @@ function Dashboard(params) {
                     <div className="my-2 d-flex flex-row justify-content-between align-items-center">
                       <span>
                         <h3 className="fw-bold text-dark mb-0"> All Cases</h3>
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-toggle="tooltip"
-                          data-bs-placement="top"
-                          data-bs-custom-class="custom-tooltip"
-                          data-bs-title="This top tooltip is themed via CSS variables."
-                        >
-                          Custom tooltip
-                        </button>
                       </span>
                       <span className="p-2">
                         <img src={searchIcon} alt="" />

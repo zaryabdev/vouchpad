@@ -113,8 +113,6 @@ export default function View({ record, handleShowViewPage }) {
     return color;
   }
 
-  function handleStatusChange(event) {}
-
   return (
     <React.Fragment>
       <div className="container-fluid px-3">
@@ -206,7 +204,12 @@ export default function View({ record, handleShowViewPage }) {
             <span className="fs-6 text-dark">{record.city}</span>
           </div>
           <div className="col-sm-3">
-            <button type="button" class="btn btn-sm btn-danger rounded-4">
+            <button
+              type="button"
+              class="btn btn-sm btn-danger rounded-4"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Un-Assign Partner
             </button>
           </div>
@@ -234,6 +237,43 @@ export default function View({ record, handleShowViewPage }) {
                     {JSON.stringify(selectedSubOption, null, 2)}
                   </code>
                 </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+          <div class="modal-content modal-bg">
+            <div class="modal-body ">
+              <div className="container">
+                <div className="row py-3">
+                  <button type="button" class="btn  btn-primary rounded-5">
+                    Are you sure
+                  </button>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6">
+                    <div className="row px-3">
+                      <button type="button" class="btn btn-danger rounded-5">
+                        Yes
+                      </button>
+                    </div>
+                  </div>
+                  <div className="col-sm-6">
+                    <div className="row px-3">
+                      <button type="button" class="btn btn-light  rounded-5">
+                        No
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
