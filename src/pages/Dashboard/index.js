@@ -72,9 +72,9 @@ function Dashboard(params) {
         className=" container-fluid px-0"
       >
         <div
-          style={{
-            height: "100vh",
-          }}
+          // style={{
+          //   height: "100vh",
+          // }}
           className="row nav-bg"
         >
           {width === "desktop" && (

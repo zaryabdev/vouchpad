@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrowLeft from "../../assets/images/dashboard/arrow-left.svg";
 import darkRed from "../../assets/images/dashboard/dark-red.png";
@@ -16,6 +16,15 @@ export default function View({ record, handleShowViewPage }) {
     student: "false",
     partner: "false",
   });
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--status-color",
+      getColorByStatus(record.status)
+    );
+  }, []);
+
+  const statusArr = ["Loan Approved", "Under Review", "Rejected"];
 
   function handleSelectedOption(name) {
     let keys = Object.keys(selectedBtn);
@@ -85,6 +94,9 @@ export default function View({ record, handleShowViewPage }) {
 
     return color;
   }
+
+  function handleStatusChange(event) {}
+
   return (
     <React.Fragment>
       <div className="container-fluid px-0">
@@ -132,8 +144,30 @@ export default function View({ record, handleShowViewPage }) {
           </div>
           <div className="col-sm-3">
             <span className="fw-bold fs-6 text-dark">Status : </span>
-            <span className={`fs-6 ${getColorByStatus(record.status)}`}>
-              {record.status}
+            <span class="dropdown">
+              <button
+                class="btn btn-transparent dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span className={`fs-6  ${getColorByStatus(record.status)}`}>
+                  {record.status}
+                </span>
+              </button>
+              <ul class="dropdown-menu dropdown-shadow rounded-4">
+                {statusArr.map((status) => {
+                  return (
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span className={`fs-6 ${getColorByStatus(status)}`}>
+                          {status}
+                        </span>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
             </span>
           </div>
         </div>

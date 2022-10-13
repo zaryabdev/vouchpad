@@ -1,3 +1,6 @@
+:root {
+  --status-color: #000;
+}
 body {
   font-family: "Poppins";
   font-size: 12px;
@@ -160,4 +163,18 @@ tbody > tr > td {
 
 .card-height {
   min-height: 240px;
+}
+
+.dropdown-toggle::after {
+  color: var(--status-color);
+}
+
+.btn-transparent {
+  border: transparent;
+  background: transparent;
+}
+
+.dropdown-shadow {
+  box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
+  border: hidden;
 }
