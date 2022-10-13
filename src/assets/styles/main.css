@@ -150,6 +150,15 @@ tbody > tr > td {
 .card-bg {
   background-color: #037ae0;
 }
+
+.btn-active-light {
+  background-color: #59b1fc;
+}
+
+.btn-hover-dark:hover {
+  background-color: #037ae0;
+}
+
 .btn-inactive {
   background-color: #d5d5d5;
 }
@@ -162,7 +171,7 @@ tbody > tr > td {
 }
 
 .card-height {
-  min-height: 240px;
+  min-height: 300px;
 }
 
 .dropdown-toggle::after {
@@ -177,4 +186,8 @@ tbody > tr > td {
 .dropdown-shadow {
   box-shadow: rgb(0 0 0 / 15%) 0px 2px 8px;
   border: hidden;
+}
+
+tr {
+  border: 1px solid #e5e5e5 !important;
 }

@@ -415,7 +415,7 @@ function TableView({ data, handleShowViewPage, width, onSelect }) {
       {width === "mobile" && (
         <div
           style={{
-            height: "30px",
+            height: "35px",
             backgroundColor: "#037ae0",
             borderRadius: "8px 8px 0px 0px",
           }}

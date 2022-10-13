@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrowLeft from "../../assets/images/dashboard/arrow-left.svg";
+import { BsArrowLeft } from "react-icons/bs";
 import darkRed from "../../assets/images/dashboard/dark-red.png";
 import green from "../../assets/images/dashboard/green.png";
 import orrange from "../../assets/images/dashboard/orrange.png";
@@ -9,11 +10,14 @@ import yellow from "../../assets/images/dashboard/yellow.png";
 import red from "../../assets/images/dashboard/red.png";
 
 export default function View({ record, handleShowViewPage }) {
-  const [selectedBtn, setSelectedBtn] = useState({
+  const [selectedOption, setSelectedOption] = useState({
     loan: "true",
     message: "false",
     checklist: "false",
-    student: "false",
+  });
+
+  const [selectedSubOption, setSelectedSubOption] = useState({
+    student: "true",
     partner: "false",
   });
 
@@ -27,7 +31,7 @@ export default function View({ record, handleShowViewPage }) {
   const statusArr = ["Loan Approved", "Under Review", "Rejected"];
 
   function handleSelectedOption(name) {
-    let keys = Object.keys(selectedBtn);
+    let keys = Object.keys(selectedOption);
     let obj = {};
 
     keys.forEach((key) => {
@@ -37,7 +41,21 @@ export default function View({ record, handleShowViewPage }) {
         obj[key] = "false";
       }
     });
-    setSelectedBtn(obj);
+    setSelectedOption(obj);
+  }
+
+  function handleSelectedSubOption(name) {
+    let keys = Object.keys(selectedSubOption);
+    let obj = {};
+
+    keys.forEach((key) => {
+      if (name === key) {
+        obj[key] = "true";
+      } else {
+        obj[key] = "false";
+      }
+    });
+    setSelectedSubOption(obj);
   }
 
   function getColorByCreditScore(score) {
@@ -99,35 +117,25 @@ export default function View({ record, handleShowViewPage }) {
 
   return (
     <React.Fragment>
-      <div className="container-fluid px-0">
-        <div className="row  my-2 d-flex align-items-center ps-4">
-          {/* <img
-            className="mt-4 mb-3"
-            style={{
-              width: "25px",
-              width: "25px",
-            }}
-            src={arrowLeft}
-            alt=""
-          /> */}
-          <p
-            style={{
-              cursor: "pointer",
-            }}
-            onClick={() => handleShowViewPage(false)}
-            className="text-muted ms-1 py-0 mb-0"
-          >
-            Back
-          </p>
-        </div>
-        <div className="row ps-4 ">
-          <div className="p-3 ps-2">
-            <div className="">
-              <h3 className="fw-bold text-dark"> Case ID {record.caseId}</h3>
-            </div>
+      <div className="container-fluid px-3">
+        <div className="row">
+          <div className="d-flex flex-row align-items-center py-2">
+            <BsArrowLeft className="text-muted me-2" />
+            <span
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => handleShowViewPage(false)}
+              className="text-muted"
+            >
+              Back
+            </span>
           </div>
         </div>
-        <div className="row mb-2  ps-4">
+        <div className="row my-2">
+          <h3 className="fw-bold text-dark"> Case ID {record.caseId}</h3>
+        </div>
+        <div className="row mb-2 ">
           <div className="col-sm-3">
             <span className="fw-bold fs-6 text-dark">Student Name : </span>
             <span className="fs-6 text-dark">{record.studentName}</span>
@@ -171,7 +179,7 @@ export default function View({ record, handleShowViewPage }) {
             </span>
           </div>
         </div>
-        <div className="row mb-2  ps-4">
+        <div className="row mb-2 ">
           <div className="col-sm-3">
             <span className="fw-bold fs-6 text-dark">Country : </span>
             <span className="fs-6 text-dark">{record.country}</span>
@@ -188,7 +196,7 @@ export default function View({ record, handleShowViewPage }) {
             </span>
           </div>
         </div>
-        <div className="row mb-2  ps-4">
+        <div className="row mb-2 ">
           <div className="col-sm-3">
             <span className="fw-bold fs-6 text-dark">City : </span>
             <span className="fs-6 text-dark">{record.city}</span>
@@ -203,94 +211,135 @@ export default function View({ record, handleShowViewPage }) {
             </button>
           </div>
         </div>
-        <div className="row mb-2 ps-4">
-          <span className="float-left">
-            <div className="d-flex flex-row justify-content-center mb-1">
-              <button
-                id="loan"
-                value="true"
-                type="button"
-                onClick={() => handleSelectedOption("loan")}
-                className={`btn btn-sm btn-left ${
-                  selectedBtn.loan === "true" ? "btn-active " : "btn-inactive"
-                }`}
-              >
-                <span className="text-light fw-bold">
-                  <small>Loan Application</small>{" "}
-                </span>
-              </button>
-              <button
-                type="button"
-                value="message"
-                onClick={() => handleSelectedOption("message")}
-                className={`btn btn-sm btn-mid ${
-                  selectedBtn.message === "true"
-                    ? "btn-active "
-                    : "btn-inactive "
-                }`}
-              >
-                <span className="text-light fw-bold">Message Board</span>
-              </button>
-              <button
-                type="button"
-                id="checklist"
-                onClick={(e) => handleSelectedOption("checklist")}
-                className={`btn btn-sm btn-right ${
-                  selectedBtn.checklist === "true"
-                    ? "btn-active "
-                    : "btn-inactive "
-                }`}
-              >
-                <span className="text-light fw-bold">Checklist</span>
-              </button>
-            </div>
-            <div className="d-flex flex-row justify-content-center">
-              <button
-                type="button"
-                id="student"
-                onClick={(e) => handleSelectedOption("student")}
-                className={`btn btn-sm btn-left-2 ${
-                  selectedBtn.student === "true"
-                    ? "btn-active "
-                    : "btn-inactive "
-                }`}
-              >
-                <span className="text-light fw-bold">Student</span>
-              </button>
-              <button
-                type="button"
-                id="partner"
-                onClick={(e) => handleSelectedOption("partner")}
-                className={`btn btn-sm btn-right-2 ${
-                  selectedBtn.partner === "true"
-                    ? "btn-active "
-                    : "btn-inactive "
-                }`}
-              >
-                <span className="text-light fw-bold">Partner</span>
-              </button>
-            </div>
-          </span>
-        </div>
-        <div className="row mb-2 ps-4">
+        <Tabs
+          selectedOption={selectedOption}
+          selectedSubOption={selectedSubOption}
+          handleSelectedOption={handleSelectedOption}
+          handleSelectedSubOption={handleSelectedSubOption}
+        />
+        <div className="row mb-2">
           <div className="container-fluid">
             <div class="card card-shadow card-height">
               <div class="card-header card-bg text-center">
                 Check Eglibility
               </div>
               <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                  <p>A well-known quote, contained in a blockquote element.</p>
-                  <footer class="blockquote-footer">
-                    Someone famous in{" "}
-                    <cite title="Source Title">Source Title</cite>
-                  </footer>
-                </blockquote>
+                <pre>
+                  <code className="text-dark">
+                    {JSON.stringify(selectedOption, null, 2)}
+                  </code>
+                </pre>
+                <pre>
+                  <code className="text-dark">
+                    {JSON.stringify(selectedSubOption, null, 2)}
+                  </code>
+                </pre>
               </div>
             </div>
           </div>
         </div>
       </div>
     </React.Fragment>
+  );
+}
+
+function Tabs({
+  selectedOption,
+  handleSelectedOption,
+  selectedSubOption,
+  handleSelectedSubOption,
+}) {
+  return (
+    <div className="row mb-2">
+      <span className="float-left">
+        <div className="d-flex flex-row justify-content-start mb-1">
+          <span>
+            <button
+              id="loan"
+              value="true"
+              type="button"
+              onClick={() => handleSelectedOption("loan")}
+              className={`btn btn-sm btn-left ${
+                selectedOption.loan === "true" ? "btn-active " : "btn-inactive"
+              }`}
+            >
+              <span className="text-light fw-bold">
+                <small>Loan Application</small>{" "}
+              </span>
+            </button>
+          </span>
+          <span>
+            <div class="d-flex flex-column">
+              <span>
+                <button
+                  type="button"
+                  value="message"
+                  onClick={() => handleSelectedOption("message")}
+                  className={`w-100 btn btn-sm btn-mid ${
+                    selectedOption.message === "true"
+                      ? "btn-active "
+                      : "btn-inactive "
+                  }`}
+                >
+                  <span className="text-light fw-bold">Message Board</span>
+                </button>
+              </span>
+              <span
+                style={{
+                  visibility:
+                    selectedOption.message === "true" ? "visible" : "hidden",
+                }}
+              >
+                <div
+                  style={{
+                    marginTop: 2,
+                  }}
+                  className="d-flex flex-row justify-content-center"
+                >
+                  <button
+                    type="button"
+                    id="student"
+                    onClick={(e) => handleSelectedSubOption("student")}
+                    className={`btn btn-sm btn-hover-dark btn-left-2 ${
+                      selectedSubOption.student === "true"
+                        ? "btn-active-light "
+                        : "btn-active "
+                    }`}
+                  >
+                    <span className="text-light fw-bold">Student</span>
+                  </button>
+                  <button
+                    type="button"
+                    id="partner"
+                    onClick={(e) => handleSelectedSubOption("partner")}
+                    className={`btn btn-sm btn-hover-dark btn-right-2 ${
+                      selectedSubOption.partner === "true"
+                        ? "btn-active-light "
+                        : "btn-active "
+                    }`}
+                  >
+                    <span className="text-light fw-bold">Partner</span>
+                  </button>
+                </div>
+              </span>
+            </div>
+          </span>
+          <span>
+            <button
+              type="button"
+              id="checklist"
+              onClick={(e) => handleSelectedOption("checklist")}
+              className={`btn btn-sm btn-right ${
+                selectedOption.checklist === "true"
+                  ? "btn-active "
+                  : "btn-inactive "
+              }`}
+            >
+              <span className="text-light fw-bold">Checklist</span>
+            </button>
+          </span>
+        </div>
+      </span>
+    </div>
   );
 }
