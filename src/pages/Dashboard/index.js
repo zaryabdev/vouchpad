@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Route, Routes, Link } from "react-router-dom";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import { BsSearch } from "react-icons/bs";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 import icon from "../../assets/images/dashboard/icon-one.svg";
 import iconWhite from "../../assets/images/dashboard/icon-one-white.svg";
@@ -117,7 +117,7 @@ function Dashboard(params) {
                     </div>
                   </div>
                   <div className="row">
-                    <p className="text-muted ms-1">
+                    <p className="text-muted">
                       Here are your stats for December 22, 2022
                     </p>
                   </div>
@@ -129,37 +129,7 @@ function Dashboard(params) {
                       onSelect={handleSelectedRecord}
                     />
                   </div>
-                  <div className="row mt-4">
-                    <div className="d-flex justify-content-end align-items-center">
-                      <nav aria-label="Page navigation example">
-                        <ul className="pagination justify-content-center">
-                          <li className="page-item disabled">
-                            <a className="page-link">Previous</a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              1
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              2
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              3
-                            </a>
-                          </li>
-                          <li className="page-item">
-                            <a className="page-link" href="#">
-                              Next
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
+                  <Pagination />
                 </div>
               </React.Fragment>
             )}
@@ -423,28 +393,28 @@ function TableView({ data, handleShowViewPage, width, onSelect }) {
         <Table className="table">
           <Thead className="table-header sticky-top">
             <Tr className="tr-border">
-              <Th scope="col">
+              <Th>
                 <p>Case ID</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Student Name</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Date</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Loan Request (USD $)</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Credit Score &#169;</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Fair Rating &#169;</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Status</p>
               </Th>
-              <Th scope="col">
+              <Th>
                 <p>Action</p>
               </Th>
             </Tr>
@@ -538,6 +508,65 @@ function Header({ width }) {
             alt=""
           />
         </div>
+      </div>
+    </div>
+  );
+}
+
+function Pagination(params) {
+  return (
+    <div className="row mt-4">
+      <div className="d-flex justify-content-end align-items-center">
+        <div className="text-dark">1 of 20 of 255 items</div>
+        <nav aria-label="Page navigation example">
+          <ul className="pagination justify-content-center">
+            <li className="page-item disabled">
+              <span className="page-link text-dark rounded-3 mx-1">
+                <MdKeyboardArrowLeft />
+              </span>
+            </li>
+            <li className="page-item">
+              <span
+                className="page-link text-dark fw-bold rounded-3 mx-1 border-shadow"
+                href="#"
+              >
+                1
+              </span>
+            </li>
+            <li className="page-item">
+              <span
+                className="page-link text-dark rounded-3 mx-1 border-shadow"
+                href="#"
+              >
+                2
+              </span>
+            </li>
+            <li className="page-item">
+              <span
+                className="page-link text-dark rounded-3 mx-1 border-shadow"
+                href="#"
+              >
+                3
+              </span>
+            </li>
+            <li className="page-item">
+              <span
+                className="page-link text-dark rounded-3 mx-1 border-shadow"
+                href="#"
+              >
+                ...
+              </span>
+            </li>
+            <li className="page-item">
+              <span
+                className="page-link text-dark rounded-3 mx-1 border-shadow"
+                href="#"
+              >
+                <MdKeyboardArrowRight />
+              </span>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );

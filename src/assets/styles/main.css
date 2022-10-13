@@ -65,11 +65,14 @@ tbody > tr > td {
 .scroll-me {
   overflow-y: scroll;
   overflow-x: hidden;
-  height: 360px;
+  height: 400px;
   width: 100%;
   border-radius: 6px;
 }
 
+.border-shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
 .table-header {
   background-color: #037ae0;
 }
