@@ -261,14 +261,22 @@ export default function View({ record, handleShowViewPage }) {
                 <div className="row">
                   <div className="col-sm-6">
                     <div className="row px-3">
-                      <button type="button" class="btn btn-danger rounded-5">
+                      <button
+                        type="button"
+                        class="btn btn-danger my-2 rounded-5"
+                        data-bs-dismiss="modal"
+                      >
                         Yes
                       </button>
                     </div>
                   </div>
                   <div className="col-sm-6">
                     <div className="row px-3">
-                      <button type="button" class="btn btn-light  rounded-5">
+                      <button
+                        type="button"
+                        class="btn btn-light  my-2 rounded-5"
+                        data-bs-dismiss="modal"
+                      >
                         No
                       </button>
                     </div>
