@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -6,6 +6,14 @@ import { Dashboard } from "./pages/Dashboard";
 import View from "./pages/View";
 
 export default function App() {
+  useEffect(() => {
+    const tooltipTriggerList = document.querySelectorAll(
+      '[data-bs-toggle="tooltip"]'
+    );
+    const tooltipList = [...tooltipTriggerList].map(
+      (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+    );
+  }, []);
   return (
     <React.Fragment>
       {/* <nav>

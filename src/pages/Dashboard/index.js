@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Route, Routes, Link } from "react-router-dom";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
@@ -110,6 +109,16 @@ function Dashboard(params) {
                     <div className="my-2 d-flex flex-row justify-content-between align-items-center">
                       <span>
                         <h3 className="fw-bold text-dark mb-0"> All Cases</h3>
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          data-bs-custom-class="custom-tooltip"
+                          data-bs-title="This top tooltip is themed via CSS variables."
+                        >
+                          Custom tooltip
+                        </button>
                       </span>
                       <span className="p-2">
                         <img src={searchIcon} alt="" />
@@ -129,7 +138,7 @@ function Dashboard(params) {
                       onSelect={handleSelectedRecord}
                     />
                   </div>
-                  <Pagination />
+                  <Pagination width={width} />
                 </div>
               </React.Fragment>
             )}
@@ -513,11 +522,13 @@ function Header({ width }) {
   );
 }
 
-function Pagination(params) {
+function Pagination({ width }) {
   return (
     <div className="row mt-4">
       <div className="d-flex justify-content-end align-items-center">
-        <div className="text-dark">1 of 20 of 255 items</div>
+        {width === "desktop" && (
+          <div className="text-dark pb-3">1 of 20 of 255 items</div>
+        )}
         <nav aria-label="Page navigation example">
           <ul className="pagination justify-content-center">
             <li className="page-item disabled">
